@@ -4,10 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Reggae School Madrid — Escuela de música reggae. Clases online y presenciales.</title>
-<meta name="description" content="Educación musical desde el reggae. Guitarra, bajo, canto, saxo, teclado, batería, producción y Combo RSM, online o presencial en Madrid, con profesores del género.">
+<meta name="description" content="Aprende reggae con músicos en activo de la escena: guitarra, bajo, canto, saxo, teclado, batería, producción y Combo RSM. Online o presencial en Madrid, sin matrícula.">
 <meta name="robots" content="noindex, nofollow">
 <link rel="icon" href="assets/img/logo-120.webp" type="image/webp">
 <link rel="preload" href="assets/fonts/archivo-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/img/esc-banda-1400.webp" as="image" fetchpriority="high">
 <link rel="stylesheet" href="assets/css/global.css">
 <link rel="stylesheet" href="assets/css/home.css">
 </head>
@@ -15,152 +16,242 @@
 
 <a class="salto-contenido" href="#contenido">Saltar al contenido</a>
 
-<!-- ============================ CABECERA ============================ -->
-<header class="cabecera" id="cabecera">
-  <div class="cabecera__interior">
-    <a class="cabecera__marca" href="#" aria-label="Reggae School Madrid, inicio">
-      <img src="assets/img/logo-120.webp" width="44" height="44" alt="" decoding="async">
-      <span class="t-credito cabecera__nombre">Reggae<br>School Madrid</span>
+<!-- ======================= CABECERA ======================= -->
+<header class="cab" data-cabecera>
+  <div class="cab__int">
+    <a class="cab__marca" href="#" aria-label="Reggae School Madrid, inicio">
+      <img src="assets/img/logo-120.webp" width="40" height="40" alt="" decoding="async">
+      <span class="t-credito cab__nombre">Reggae School<br><span>Madrid</span></span>
     </a>
 
-    <nav class="nav" id="nav" aria-label="Principal">
+    <nav class="nav" data-nav aria-label="Principal">
       <ul class="nav__lista t-util">
         <li><a href="#cursos">Cursos</a></li>
-        <li><a href="#curso-produccion">Producción</a></li>
-        <li><a href="#alumnado">Equipo RSM</a></li>
-        <li><a href="#reserva">Contacto</a></li>
-        <li><a href="#rrss">Tienda</a></li>
+        <li><a href="#claustro">Profesorado</a></li>
+        <li><a href="#combo">Combo RSM</a></li>
+        <li><a href="#tarifas">Tarifas</a></li>
+        <li><a href="#faq">Preguntas</a></li>
       </ul>
       <ul class="nav__redes" aria-label="Redes sociales">
-        <li><a href="https://www.facebook.com/reggaeschoolmadrid" aria-label="Facebook"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="currentColor"><path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h3l1-3h-4v-2c0-.6.4-1 1-1z"/></svg></a></li>
-        <li><a href="https://www.instagram.com/reggaeschoolmadrid/" aria-label="Instagram"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a></li>
-        <li><a href="https://www.youtube.com/channel/UCNSFSKC_9hNB4wqtihIZoTg" aria-label="YouTube"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" fill="currentColor"><path d="M22 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C18.3 5 12 5 12 5s-6.3 0-7.8.5a2.5 2.5 0 0 0-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.7c.2.9.9 1.6 1.8 1.8C5.7 19 12 19 12 19s6.3 0 7.8-.5a2.5 2.5 0 0 0 1.8-1.8C22 15.2 22 12 22 12zM10 15V9l5.2 3L10 15z"/></svg></a></li>
+        <li><a href="https://www.facebook.com/reggaeschoolmadrid" aria-label="Facebook"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h3l1-3h-4v-2c0-.6.4-1 1-1z"/></svg></a></li>
+        <li><a href="https://www.instagram.com/reggaeschoolmadrid/" aria-label="Instagram"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a></li>
+        <li><a href="https://www.youtube.com/channel/UCNSFSKC_9hNB4wqtihIZoTg" aria-label="YouTube"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true" fill="currentColor"><path d="M22 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C18.3 5 12 5 12 5s-6.3 0-7.8.5a2.5 2.5 0 0 0-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.7c.2.9.9 1.6 1.8 1.8C5.7 19 12 19 12 19s6.3 0 7.8-.5a2.5 2.5 0 0 0 1.8-1.8C22 15.2 22 12 22 12zM10 15V9l5.2 3L10 15z"/></svg></a></li>
       </ul>
+      <a class="boton boton--solido nav__cta" href="#reserva">Sesión de prueba</a>
     </nav>
 
-    <a class="cabecera__cta t-util" href="#reserva">Reserva una sesión de prueba</a>
-
-    <button class="menu-boton" id="menu-boton" aria-expanded="false" aria-controls="nav" aria-label="Abrir menú">
-      <span></span><span></span><span></span>
+    <button class="menu-btn" data-menu-boton aria-expanded="false" aria-controls="nav" aria-label="Abrir menú">
+      <span></span><span></span>
     </button>
   </div>
 </header>
 
 <main id="contenido">
 
-<!-- ============================ HERO ============================ -->
-<section class="hero" aria-labelledby="hero-titulo">
-  <div class="envoltura hero__interior">
-
-    <div class="hero__texto">
-      <p class="t-credito hero__eyebrow">Educación musical desde el reggae</p>
-      <h1 class="hero__titulo" id="hero-titulo">
-        <span class="hero__titulo-menor">Reggae School Madrid nace para ofrecerte</span>
-        <span class="hero__titulo-mayor">una enseñanza musical y artística completa desde el Reggae</span>
-        <span class="hero__titulo-menor hero__titulo-cola">con profesores experimentados en el género y donde tú eres el protagonista de tu propio aprendizaje.</span>
-      </h1>
-    </div>
-
-    <figure class="hero__foto">
-      <img src="assets/img/hero-javier-900.webp"
-           srcset="assets/img/hero-javier-600.webp 600w, assets/img/hero-javier-900.webp 900w, assets/img/hero-javier-1200.webp 1200w"
-           sizes="(min-width: 900px) 32vw, 100vw"
-           width="900" height="1125"
-           alt="Javier Ochoa, director de Reggae School Madrid, tocando la guitarra con cascos en el estudio"
-           fetchpriority="high" decoding="async">
-      <img class="hero__sello" src="assets/img/logo-240.webp" width="120" height="120" alt="" decoding="async">
-    </figure>
-
-    <!-- Formulario: mismo sitio y mismo orden que en su web -->
-    <div class="reserva claro" id="reserva">
-      <h2 class="t-seccion reserva__titulo">Reserva una sesión de prueba</h2>
-      <form class="reserva__form" novalidate>
-        <p class="campo">
-          <label class="t-util" for="f-nombre">Nombre <span aria-hidden="true">(obligatorio)</span></label>
-          <input id="f-nombre" name="nombre" type="text" required autocomplete="name">
-        </p>
-        <p class="campo">
-          <label class="t-util" for="f-mail">Mail <span aria-hidden="true">(obligatorio)</span></label>
-          <input id="f-mail" name="mail" type="email" required autocomplete="email">
-        </p>
-        <p class="campo">
-          <label class="t-util" for="f-tel">N. de teléfono <span aria-hidden="true">(obligatorio)</span></label>
-          <input id="f-tel" name="telefono" type="tel" required autocomplete="tel">
-        </p>
-        <p class="campo">
-          <label class="t-util" for="f-instrumento">Instrumento <span aria-hidden="true">(obligatorio)</span></label>
-          <select id="f-instrumento" name="instrumento" required>
-            <option value="">Seleccionar una opción</option>
-            <option>Voz</option><option>Guitarra</option><option>Teclado</option>
-            <option>Saxo</option><option>Bajo</option><option>Batería</option>
-            <option>Producción y mezcla</option><option>Combo RSM</option>
-          </select>
-        </p>
-        <p class="campo">
-          <label class="t-util" for="f-modalidad">Modalidad</label>
-          <select id="f-modalidad" name="modalidad">
-            <option value="">Seleccionar una opción</option>
-            <option>Semanal Online</option><option>Semanal Presencial</option>
-            <option>Quincenal Online</option><option>Quincenal Presencial</option>
-          </select>
-        </p>
-        <p class="campo">
-          <label class="t-util" for="f-localizacion">Localización</label>
-          <input id="f-localizacion" name="localizacion" type="text">
-        </p>
-        <p class="campo campo--ancho">
-          <label class="t-util" for="f-comentarios">Comentarios</label>
-          <textarea id="f-comentarios" name="comentarios" rows="3"></textarea>
-        </p>
-        <p class="campo campo--ancho reserva__envio">
-          <button class="boton boton--solido" type="submit">Enviar</button>
-        </p>
-      </form>
-    </div>
-
+<!-- ======================= HERO ======================= -->
+<section class="hero" data-hero aria-labelledby="h1">
+  <div class="hero__fondo">
+    <img data-hero-img
+         src="assets/img/esc-banda-1400.webp"
+         srcset="assets/img/esc-banda-900.webp 900w, assets/img/esc-banda-1400.webp 1400w, assets/img/esc-banda-1920.webp 1920w"
+         sizes="100vw" width="1920" height="1080"
+         alt="Dos músicos de Reggae School Madrid tocando en directo, guitarra y voz, bajo luces cálidas de escenario"
+         fetchpriority="high" decoding="async">
   </div>
 
-  <!-- Línea de índice: los 8 cursos de un vistazo, cada uno ancla a su caja -->
-  <nav class="indice" aria-label="Índice de cursos">
-    <div class="indice__pista t-util">
-      <a href="#curso-guitarra">Guitarra</a>
-      <a href="#curso-bajo">Bajo</a>
-      <a href="#curso-canto">Canto</a>
-      <a href="#curso-saxo">Saxo</a>
-      <a href="#curso-teclado">Teclado</a>
-      <a href="#curso-bateria">Batería</a>
-      <a href="#curso-produccion">Producción y mezcla</a>
-      <a href="#curso-combo">Combo RSM</a>
+  <div class="hero__int envoltura envoltura--ancha">
+    <p class="t-credito hero__eyebrow">Escuela de música reggae · Madrid y online</p>
+
+    <h1 class="t-mega hero__h1 lineas" id="h1">
+      <span class="linea"><span>Aprende reggae</span></span>
+      <span class="linea"><span>con los músicos</span></span>
+      <span class="linea"><span>que <em>lo tocan</em></span></span>
+    </h1>
+
+    <p class="hero__apoyo t-guia">
+      Ocho cursos, online o presenciales en Madrid, con profesores que han grabado con
+      <strong>Ky-Mani Marley</strong>, han tocado en el <strong>Rototom</strong> y han puesto
+      los saxos de <strong>Ska-P</strong>.
+    </p>
+
+    <div class="hero__ctas">
+      <a class="boton boton--solido" href="#reserva">Reserva una sesión de prueba</a>
+      <a class="boton boton--fantasma" href="#cursos">Ver los ocho cursos</a>
     </div>
-  </nav>
+  </div>
+
+  <!-- Barra de credibilidad: datos verificados, en marquesina -->
+  <div class="tira" aria-label="Datos de la escuela">
+    <div class="tira__pista">
+      <ul class="tira__grupo t-util">
+        <li>Desde 2020</li><li aria-hidden="true">✳</li>
+        <li>Sin matrícula</li><li aria-hidden="true">✳</li>
+        <li>Online y presencial</li><li aria-hidden="true">✳</li>
+        <li>Radio 3 · Alma de León</li><li aria-hidden="true">✳</li>
+        <li>8 cursos</li><li aria-hidden="true">✳</li>
+        <li>Clases individuales</li><li aria-hidden="true">✳</li>
+      </ul>
+      <ul class="tira__grupo t-util" aria-hidden="true">
+        <li>Desde 2020</li><li>✳</li>
+        <li>Sin matrícula</li><li>✳</li>
+        <li>Online y presencial</li><li>✳</li>
+        <li>Radio 3 · Alma de León</li><li>✳</li>
+        <li>8 cursos</li><li>✳</li>
+        <li>Clases individuales</li><li>✳</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
-<!-- ============================ INTRO + VÍDEO ============================ -->
-<section class="seccion intro" aria-label="Presentación en vídeo">
-  <div class="envoltura intro__interior">
-    <div class="video revelar" id="video">
-      <button class="video__lanzar" type="button" data-video="PeHxVKkdIkA"
-              aria-label="Reproducir el vídeo de presentación de Reggae School Madrid">
-        <img src="assets/img/aula-828.webp"
-             srcset="assets/img/aula-800.webp 800w, assets/img/aula-828.webp 828w"
-             sizes="(min-width: 900px) 60vw, 100vw"
-             width="828" height="466"
-             alt="Javier Ochoa, director de RSM, en el estudio de grabación" loading="lazy" decoding="async">
+<!-- ======================= INTRO + VÍDEO ======================= -->
+<section class="seccion intro">
+  <div class="envoltura intro__int">
+    <p class="intro__frase" data-revela>
+      Reggae School Madrid nace para ofrecerte <em>una enseñanza musical y artística completa
+      desde el Reggae</em>, con profesores experimentados en el género y donde tú eres el
+      protagonista de tu propio aprendizaje.
+    </p>
+
+    <div class="video cortina" data-revela>
+      <button class="video__btn" type="button" data-video="PeHxVKkdIkA"
+              aria-label="Reproducir la presentación de Reggae School Madrid">
+        <img src="assets/img/esc-javier-1400.webp"
+             srcset="assets/img/esc-javier-900.webp 900w, assets/img/esc-javier-1400.webp 1400w"
+             sizes="(min-width: 900px) 80vw, 100vw" width="1400" height="788"
+             alt="Javier Ochoa, director de la escuela, tocando la guitarra en el estudio"
+             loading="lazy" decoding="async">
         <span class="video__play" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="28" height="28" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+          <svg viewBox="0 0 24 24" width="26" height="26" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
         </span>
-        <span class="t-credito video__pie">Javier Ochoa · Director RSM</span>
+        <span class="t-credito video__pie">Javier Ochoa · Director de la escuela</span>
       </button>
     </div>
   </div>
 </section>
 
-<!-- ============================ CURSOS ============================ -->
-<section class="cursos" id="cursos" aria-labelledby="cursos-titulo">
+<!-- ======================= CLAUSTRO ======================= -->
+<section class="seccion claustro" id="claustro" aria-labelledby="claustro-t">
   <div class="envoltura">
-    <header class="cabeza-seccion revelar">
-      <h2 class="t-seccion" id="cursos-titulo">Nuestros cursos</h2>
-      <p class="t-cuerpo cabeza-seccion__bajada">
+    <header class="cabeza" data-revela>
+      <p class="t-credito cabeza__eyebrow">El profesorado</p>
+      <h2 class="t-seccion" id="claustro-t">Quién te da la clase</h2>
+      <p class="t-guia">
+        No son profesores que además tocan. Son músicos en activo de la escena del reggae que
+        además enseñan. Esto es lo que han hecho fuera del aula.
+      </p>
+    </header>
+  </div>
+
+  <div class="envoltura claustro__grid">
+    <!-- Columna de retratos, sticky en escritorio -->
+    <div class="claustro__retratos" aria-hidden="true">
+      <div class="claustro__pila">
+        <img class="retrato" data-prof="javier" src="assets/img/prof-javier-560.webp" width="560" height="560" alt="" loading="lazy" decoding="async">
+        <img class="retrato" data-prof="maga" src="assets/img/prof-maga-560.webp" width="560" height="560" alt="" loading="lazy" decoding="async">
+        <img class="retrato" data-prof="jorge" src="assets/img/prof-saxo-560.webp" width="560" height="560" alt="" loading="lazy" decoding="async">
+        <img class="retrato" data-prof="pol" src="assets/img/prof-saxo-560.webp" width="560" height="560" alt="" loading="lazy" decoding="async">
+        <img class="retrato" data-prof="david" src="assets/img/prof-david-560.webp" width="560" height="560" alt="" loading="lazy" decoding="async">
+        <img class="retrato" data-prof="resto" src="assets/img/prof-bajo-560.webp" width="560" height="560" alt="" loading="lazy" decoding="async">
+      </div>
+    </div>
+
+    <ol class="claustro__lista">
+      <li class="prof" data-revela data-prof-id="javier">
+        <img class="prof__foto" src="assets/img/prof-javier-280.webp" width="280" height="280"
+             alt="Javier Ochoa, director de la escuela" loading="lazy" decoding="async">
+        <div class="prof__texto">
+          <p class="t-credito prof__rol">Guitarra · Canto · Producción <span>Director</span></p>
+          <h3 class="t-rotulo prof__nombre">Javier Ochoa</h3>
+          <p class="t-cuerpo">
+            Más de 20 años en la escena reggae de Madrid, en bandas como Hotdrop, Blueskank y
+            The Rootskank, y en el sound system Echo Chamber Roots Hi-Fi. Produce en su propio
+            sello, <strong>Estudios Estrella</strong>, dedicado al reggae de los setenta y ochenta
+            grabado con técnicas analógicas. Publicó «One Day» sobre el Serious Time Riddim de
+            <strong>Mungo's Hi-Fi</strong>.
+          </p>
+        </div>
+      </li>
+
+      <li class="prof" data-revela data-prof-id="maga">
+        <img class="prof__foto" src="assets/img/prof-maga-280.webp" width="280" height="280"
+             alt="Maga Lion, profesor del Combo RSM" loading="lazy" decoding="async">
+        <div class="prof__texto">
+          <p class="t-credito prof__rol">Combo RSM</p>
+          <h3 class="t-rotulo prof__nombre">Maga Lion</h3>
+          <p class="t-cuerpo">
+            Miembro fundador de <strong>Emeterians</strong>, el trío de roots reggae formado en
+            Madrid en 2004, con siete discos publicados. <em>The Magic Touch</em> llegó al
+            <strong>puesto 43 de la lista Billboard de reggae</strong>. Ha grabado con
+            <strong>Ky-Mani Marley, Clinton Fearon y Luciano</strong>, y ha tocado en el
+            <strong>Rototom Sunsplash</strong>.
+          </p>
+        </div>
+      </li>
+
+      <li class="prof" data-revela data-prof-id="jorge">
+        <img class="prof__foto" src="assets/img/prof-saxo-280.webp" width="280" height="280"
+             alt="Jorge Rodríguez, profesor de saxo" loading="lazy" decoding="async">
+        <div class="prof__texto">
+          <p class="t-credito prof__rol">Saxo</p>
+          <h3 class="t-rotulo prof__nombre">Jorge Rodríguez</h3>
+          <p class="t-cuerpo">
+            Grabó los <strong>saxos tenor y barítono del disco «99%» de Ska-P</strong>. Miembro
+            fundador de <strong>Skalone</strong>, banda de ska-jazz de Madrid, que publicó «Una
+            media sonrisa» con músicos del New York Ska Jazz Ensemble y Freedonia.
+          </p>
+        </div>
+      </li>
+
+      <li class="prof" data-revela data-prof-id="pol">
+        <img class="prof__foto" src="assets/img/prof-saxo-280.webp" width="280" height="280"
+             alt="Pol Prats, profesor de saxo en Barcelona" loading="lazy" decoding="async">
+        <div class="prof__texto">
+          <p class="t-credito prof__rol">Saxo <span>Barcelona</span></p>
+          <h3 class="t-rotulo prof__nombre">Pol Prats</h3>
+          <p class="t-cuerpo">
+            <strong>Cinco años profesor</strong> de saxofón, Sax Project Big Band y lenguaje
+            musical en la <strong>Escola de Blues de Barcelona</strong>. Ha grabado alrededor de
+            <strong>veinte discos</strong> y tocado en festivales de <strong>diez países</strong>.
+            Saxofonista de Don Cosmic, banda de ska instrumental y rocksteady.
+          </p>
+        </div>
+      </li>
+
+      <li class="prof" data-revela data-prof-id="david">
+        <img class="prof__foto" src="assets/img/prof-david-280.webp" width="280" height="280"
+             alt="David Arribas, profesor de teclado y del Combo RSM" loading="lazy" decoding="async">
+        <div class="prof__texto">
+          <p class="t-credito prof__rol">Teclado · Combo RSM</p>
+          <h3 class="t-rotulo prof__nombre">David Arribas</h3>
+          <p class="t-cuerpo">
+            Dirige desde 2012 <strong>Downtown Beat</strong>, con los discos <em>Home</em> y
+            <em>Beyond the Cortex</em>. En ese proyecto ha reunido voces de la escena estatal como
+            Emeterians, Payoh SoulRebel y High Paw. Ha tocado en Hotdrop, Mood Rakers, Blueskank y
+            Bass Culture Players.
+          </p>
+        </div>
+      </li>
+
+      <li class="prof prof--resto" data-revela data-prof-id="resto">
+        <div class="prof__texto">
+          <p class="t-credito prof__rol">También dan clase</p>
+          <h3 class="t-rotulo prof__nombre">Pablo Cano <span>·</span> Miguel Valenciano <span>·</span> Miguel Moreno</h3>
+          <p class="t-cuerpo">
+            Bajo y batería, con trayectoria en la escena madrileña de reggae, ska y rocksteady.
+          </p>
+        </div>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ======================= CURSOS ======================= -->
+<section class="cursos" id="cursos" aria-labelledby="cursos-t">
+  <div class="envoltura">
+    <header class="cabeza" data-revela>
+      <p class="t-credito cabeza__eyebrow">Nuestros cursos</p>
+      <h2 class="t-seccion" id="cursos-t">Ocho formas de entrar</h2>
+      <p class="t-guia">
         Cursos online o presenciales <strong>estructurados en módulos temáticos</strong> que
         <strong>se adaptan</strong> perfectamente a tus <strong>horarios y a tu nivel</strong>,
         para acompañarte hacia el músico que quieres llegar a ser.
@@ -168,299 +259,361 @@
     </header>
   </div>
 
-  <!-- LA PILA. Alturas desiguales dictadas por la longitud real de su copy. -->
-  <div class="pila">
-    <div class="envoltura pila__interior">
+  <!-- Lista de cursos: el nombre manda, la foto aparece al pasar -->
+  <div class="envoltura lista" data-lista>
+    <article class="curso" id="curso-guitarra" data-revela>
+      <a class="curso__enlace" href="#reserva">
+        <span class="curso__n t-util">01</span>
+        <h3 class="t-rotulo curso__nombre">Guitarra</h3>
+        <span class="t-credito curso__prof">Javier Ochoa</span>
+        <span class="curso__flecha" aria-hidden="true">→</span>
+      </a>
+      <div class="curso__detalle">
+        <p class="t-cuerpo">
+          Con Javier Ochoa podrás aprender o perfeccionar los <strong>tipos de guitarra en
+          reggae</strong>: <em>rítmica, picking, melódica o solista</em>. Saca partido a la
+          <strong>sonoridad</strong> de tu instrumento y conoce <strong>técnicas de
+          expresión</strong>: <em>bend, vibratos, ligados</em>. Descubre los <strong>pedales y
+          efectos</strong> más comunes en reggae: <em>Delay, reverb, phaser, Wah wah</em>.
+        </p>
+        <img src="assets/img/curso-guitarra-600.webp" width="600" height="800"
+             alt="Guitarrista tocando en directo" loading="lazy" decoding="async">
+      </div>
+    </article>
 
-      <article class="caja revelar" id="curso-guitarra">
-        <div class="caja__cuerpo">
-          <p class="t-credito caja__credito">Guitarra <span aria-hidden="true">—</span> Javier Ochoa</p>
-          <h3 class="t-rotulo caja__rotulo">Curso de guitarra</h3>
-          <p class="t-cuerpo caja__texto">
-            Con Javier Ochoa podrás aprender o perfeccionar los <strong>tipos de guitarra en reggae</strong>:
-            <em>rítmica, picking, melódica o solista</em>. Saca partido a la <strong>sonoridad</strong> de tu
-            instrumento y conoce <strong>técnicas de expresión</strong>: <em>bend, vibratos, ligados</em>.
-            Descubre los <strong>pedales y efectos</strong> más comunes en reggae: <em>Delay, reverb, phaser, Wah wah</em>.
-          </p>
-          <a class="boton" href="#reserva">Más info</a>
-        </div>
-        <figure class="caja__foto">
-          <img src="assets/img/curso-guitarra-600.webp"
-               srcset="assets/img/curso-guitarra-400.webp 400w, assets/img/curso-guitarra-600.webp 600w, assets/img/curso-guitarra-892.webp 892w"
-               sizes="(min-width: 860px) 34vw, 100vw" width="600" height="800"
-               alt="Guitarrista tocando en directo con luz cálida de escenario" loading="lazy" decoding="async">
-        </figure>
-      </article>
+    <article class="curso" id="curso-bajo" data-revela>
+      <a class="curso__enlace" href="#reserva">
+        <span class="curso__n t-util">02</span>
+        <h3 class="t-rotulo curso__nombre">Bajo</h3>
+        <span class="t-credito curso__prof">Pablo Cano</span>
+        <span class="curso__flecha" aria-hidden="true">→</span>
+      </a>
+      <div class="curso__detalle">
+        <p class="t-cuerpo">
+          Controla el <strong>groove</strong> de las 4 cuerdas con Pablo Cano. Estudia en
+          profundidad los <strong>subgéneros</strong> del reggae y la <strong>técnica</strong>
+          necesaria para dominarlos. Entiende y domina tu <strong>sonido</strong> y sus
+          posibilidades.
+        </p>
+        <img src="assets/img/curso-bajo-600.webp" width="600" height="800"
+             alt="Bajo eléctrico de cuatro cuerdas" loading="lazy" decoding="async">
+      </div>
+    </article>
 
-      <article class="caja revelar" id="curso-bajo">
-        <div class="caja__cuerpo">
-          <p class="t-credito caja__credito">Bajo <span aria-hidden="true">—</span> Pablo Cano</p>
-          <h3 class="t-rotulo caja__rotulo">Curso de bajo</h3>
-          <p class="t-cuerpo caja__texto">
-            Controla el <strong>groove</strong> de las 4 cuerdas con Pablo Cano. Estudia en profundidad los
-            <strong>subgéneros</strong> del reggae y la <strong>técnica</strong> necesaria para dominarlos.
-            Entiende y domina tu <strong>sonido</strong> y sus posibilidades.
-          </p>
-          <a class="boton" href="#reserva">Más info</a>
-        </div>
-        <figure class="caja__foto">
-          <img src="assets/img/curso-bajo-600.webp"
-               srcset="assets/img/curso-bajo-400.webp 400w, assets/img/curso-bajo-600.webp 600w, assets/img/curso-bajo-900.webp 900w"
-               sizes="(min-width: 860px) 34vw, 100vw" width="600" height="800"
-               alt="Bajo eléctrico de cuatro cuerdas en manos de Pablo Cano" loading="lazy" decoding="async">
-        </figure>
-      </article>
+    <article class="curso" id="curso-canto" data-revela>
+      <a class="curso__enlace" href="#reserva">
+        <span class="curso__n t-util">03</span>
+        <h3 class="t-rotulo curso__nombre">Canto</h3>
+        <span class="t-credito curso__prof">Javier Ochoa</span>
+        <span class="curso__flecha" aria-hidden="true">→</span>
+      </a>
+      <div class="curso__detalle">
+        <p class="t-cuerpo">
+          Descubre con Javier Ochoa las <strong>posibilidades expresivas</strong> de tu voz.
+          Desarrolla de manera divertida el <strong>oído interno</strong> y la
+          <strong>afinación.</strong> Conoce técnicas de <strong>corrección en la emisión</strong>.
+          Explora diversas <strong>herramientas compositivas de letras</strong>. Si eres solista o
+          eres corista, aprende a poder <strong>armonizar voces</strong>. Para voces melódicas o
+          recitadas. Aprende a usar el <strong>micrófono</strong> y <strong>efectos</strong> para voz.
+        </p>
+        <img src="assets/img/curso-canto-600.webp" width="600" height="800"
+             alt="Cantante con micrófono en un concierto" loading="lazy" decoding="async">
+      </div>
+    </article>
 
-      <article class="caja caja--crema revelar" id="curso-canto">
-        <div class="caja__cuerpo">
-          <p class="t-credito caja__credito">Canto <span aria-hidden="true">—</span> Javier Ochoa</p>
-          <h3 class="t-rotulo caja__rotulo">Curso de canto</h3>
-          <p class="t-cuerpo caja__texto">
-            Descubre con Javier Ochoa las <strong>posibilidades expresivas</strong> de tu voz. Desarrolla de manera
-            divertida el <strong>oído interno</strong> y la <strong>afinación.</strong> Conoce técnicas de
-            <strong>corrección en la emisión</strong>. Explora diversas <strong>herramientas compositivas de letras</strong>.
-            Si eres solista o eres corista, aprende a poder <strong>armonizar voces</strong>. Para voces melódicas o
-            recitadas. Aprende a usar el <strong>micrófono</strong> y <strong>efectos</strong> para voz.
-          </p>
-          <a class="boton" href="#reserva">Más info</a>
-        </div>
-        <figure class="caja__foto">
-          <img src="assets/img/curso-canto-600.webp"
-               srcset="assets/img/curso-canto-400.webp 400w, assets/img/curso-canto-600.webp 600w, assets/img/curso-canto-900.webp 900w"
-               sizes="(min-width: 860px) 34vw, 100vw" width="600" height="800"
-               alt="Cantante con micrófono en un concierto de reggae" loading="lazy" decoding="async">
-        </figure>
-      </article>
+    <article class="curso" id="curso-saxo" data-revela>
+      <a class="curso__enlace" href="#reserva">
+        <span class="curso__n t-util">04</span>
+        <h3 class="t-rotulo curso__nombre">Saxo</h3>
+        <span class="t-credito curso__prof">Jorge Rodríguez · Pol Prats</span>
+        <span class="curso__flecha" aria-hidden="true">→</span>
+      </a>
+      <div class="curso__detalle">
+        <p class="t-cuerpo">
+          Aprende con <strong>Jorge Rodríguez</strong> las posibilidades <strong>expresivas del
+          saxofón</strong> y su gran aportación al reggae. Trabaja la <strong>técnica</strong> del
+          instrumento con los <strong>grandes clásicos</strong> del género. Aprende de cero o
+          perfecciona tu nivel con este gran profesor y músico <strong>residente en Madrid</strong>.
+        </p>
+        <img src="assets/img/curso-saxo-600.webp" width="600" height="800"
+             alt="Jorge Rodríguez tocando el saxofón" loading="lazy" decoding="async">
+      </div>
+    </article>
 
-      <article class="caja revelar" id="curso-saxo">
-        <div class="caja__cuerpo">
-          <p class="t-credito caja__credito">Saxo <span aria-hidden="true">—</span> Jorge Rodríguez</p>
-          <h3 class="t-rotulo caja__rotulo">Curso de saxo</h3>
-          <p class="t-cuerpo caja__texto">
-            Aprende con <strong>Jorge Rodríguez</strong> las posibilidades <strong>expresivas del saxofón</strong> y su
-            gran aportación al reggae. Trabaja la <strong>técnica</strong> del instrumento con los
-            <strong>grandes clásicos</strong> del género. Aprende de cero o perfecciona tu nivel con este gran profesor
-            y músico <strong>residente en Madrid</strong>.
-          </p>
-          <a class="boton" href="#reserva">Más info</a>
-        </div>
-        <figure class="caja__foto">
-          <img src="assets/img/curso-saxo-600.webp"
-               srcset="assets/img/curso-saxo-400.webp 400w, assets/img/curso-saxo-600.webp 600w, assets/img/curso-saxo-900.webp 900w"
-               sizes="(min-width: 860px) 34vw, 100vw" width="600" height="800"
-               alt="Jorge Rodríguez tocando el saxofón en directo" loading="lazy" decoding="async">
-        </figure>
-      </article>
+    <article class="curso" id="curso-teclado" data-revela>
+      <a class="curso__enlace" href="#reserva">
+        <span class="curso__n t-util">05</span>
+        <h3 class="t-rotulo curso__nombre">Teclado</h3>
+        <span class="t-credito curso__prof">David Arribas</span>
+        <span class="curso__flecha" aria-hidden="true">→</span>
+      </a>
+      <div class="curso__detalle">
+        <p class="t-cuerpo">
+          Conoce con David Arribas los <strong>tipos de teclados</strong> característicos en reggae:
+          <em>Piano, Hammond, Clavi, Sinte y Rhodes</em>. Aprende conceptos de
+          <strong>armonía</strong> que podrás aplicar en tus composiciones. Explora la
+          <strong>sonoridad</strong> de cada teclado y sus posibilidades expresivas. Desarrolla
+          distintas técnicas de <strong>independencia de manos</strong> y descubre estrategias de
+          <strong>improvisación</strong>.
+        </p>
+        <img src="assets/img/curso-teclado-600.webp" width="600" height="800"
+             alt="Teclado Rhodes de madera" loading="lazy" decoding="async">
+      </div>
+    </article>
 
-      <article class="caja revelar" id="curso-teclado">
-        <div class="caja__cuerpo">
-          <p class="t-credito caja__credito">Teclado <span aria-hidden="true">—</span> David Arribas</p>
-          <h3 class="t-rotulo caja__rotulo">Curso de teclado</h3>
-          <p class="t-cuerpo caja__texto">
-            Conoce con David Arribas los <strong>tipos de teclados</strong> característicos en reggae:
-            <em>Piano, Hammond, Clavi, Sinte y Rhodes</em>. Aprende conceptos de <strong>armonía</strong> que podrás
-            aplicar en tus composiciones. Explora la <strong>sonoridad</strong> de cada teclado y sus posibilidades
-            expresivas. Desarrolla distintas técnicas de <strong>independencia de manos</strong> y descubre estrategias
-            de <strong>improvisación</strong>.
-          </p>
-          <a class="boton" href="#reserva">Más info</a>
-        </div>
-        <figure class="caja__foto">
-          <img src="assets/img/curso-teclado-600.webp"
-               srcset="assets/img/curso-teclado-400.webp 400w, assets/img/curso-teclado-600.webp 600w, assets/img/curso-teclado-900.webp 900w"
-               sizes="(min-width: 860px) 34vw, 100vw" width="600" height="800"
-               alt="Teclado Rhodes de madera con las teclas en primer plano" loading="lazy" decoding="async">
-        </figure>
-      </article>
+    <article class="curso" id="curso-bateria" data-revela>
+      <a class="curso__enlace" href="#reserva">
+        <span class="curso__n t-util">06</span>
+        <h3 class="t-rotulo curso__nombre">Batería</h3>
+        <span class="t-credito curso__prof">Miguel Valenciano · Miguel Moreno</span>
+        <span class="curso__flecha" aria-hidden="true">→</span>
+      </a>
+      <div class="curso__detalle">
+        <p class="t-cuerpo">
+          Estudia con Miguel Valenciano o Miguel Moreno los <strong>subestilos del Reggae</strong>:
+          <em>one drop, early dancehall, flying cymbal, stepper</em>. Aprende los
+          <strong>fills</strong> más característicos de cada subestilo. Controla la
+          <strong>técnica</strong> del instrumento.
+        </p>
+        <img src="assets/img/curso-bateria-600.webp" width="600" height="800"
+             alt="Baterista tocando" loading="lazy" decoding="async">
+      </div>
+    </article>
 
-      <article class="caja caja--crema revelar" id="curso-bateria">
-        <div class="caja__cuerpo">
-          <p class="t-credito caja__credito">Batería <span aria-hidden="true">—</span> Miguel Valenciano / Miguel Moreno</p>
-          <h3 class="t-rotulo caja__rotulo">Batería</h3>
-          <p class="t-cuerpo caja__texto">
-            Estudia con Miguel Valenciano o Miguel Moreno los <strong>subestilos del Reggae</strong>:
-            <em>one drop, early dancehall, flying cymbal, stepper</em>. Aprende los <strong>fills</strong> más
-            característicos de cada subestilo. Controla la <strong>técnica</strong> del instrumento.
-          </p>
-          <a class="boton" href="#reserva">Más info</a>
-        </div>
-        <figure class="caja__foto">
-          <img src="assets/img/curso-bateria-600.webp"
-               srcset="assets/img/curso-bateria-400.webp 400w, assets/img/curso-bateria-601.webp 601w"
-               sizes="(min-width: 860px) 34vw, 100vw" width="600" height="800"
-               alt="Baterista tocando, fotografía en blanco y negro" loading="lazy" decoding="async">
-        </figure>
-      </article>
+    <article class="curso" id="curso-produccion" data-revela>
+      <a class="curso__enlace" href="#reserva">
+        <span class="curso__n t-util">07</span>
+        <h3 class="t-rotulo curso__nombre">Producción y mezcla</h3>
+        <span class="t-credito curso__prof">Javier Ochoa</span>
+        <span class="curso__flecha" aria-hidden="true">→</span>
+      </a>
+      <div class="curso__detalle">
+        <p class="t-cuerpo">
+          Aprende con Javier Ochoa técnicas de <strong>composición y arreglos musicales</strong>
+          orientado a la producción discográfica. Realizaremos un detallado <strong>estudio de cada
+          instrumento</strong> y su rol en la canción. Aprende <strong>técnicas de
+          grabación</strong> de instrumentos. Técnicas de edición y preparación para la mezcla.
+          <strong>Mezcla analógica / mezcla digital</strong>. Trabajamos con <em>Cubase, Pro Tools,
+          Ableton, Reason, Reaper y Logic pro</em>.
+        </p>
+        <img src="assets/img/curso-produccion-512.webp" width="512" height="683"
+             alt="Mesa de mezclas durante una sesión" loading="lazy" decoding="async">
+      </div>
+    </article>
 
-      <article class="caja revelar" id="curso-produccion">
-        <div class="caja__cuerpo">
-          <p class="t-credito caja__credito">Producción y mezcla <span aria-hidden="true">—</span> Javier Ochoa</p>
-          <h3 class="t-rotulo caja__rotulo">Producción y mezcla</h3>
-          <p class="t-cuerpo caja__texto">
-            Aprende con Javier Ochoa técnicas de <strong>composición y arreglos musicales</strong> orientado a la
-            producción discográfica. Realizaremos un detallado <strong>estudio de cada instrumento</strong> y su rol en
-            la canción. Aprende <strong>técnicas de grabación</strong> de instrumentos. Técnicas de edición y
-            preparación para la mezcla. <strong>Mezcla analógica / mezcla digital</strong>. Trabajamos con
-            <em>Cubase, Pro Tools, Ableton, Reason, Reaper y Logic pro</em>.
-          </p>
-          <a class="boton" href="#reserva">Más info</a>
-        </div>
-        <figure class="caja__foto">
-          <img src="assets/img/curso-produccion-512.webp"
-               srcset="assets/img/curso-produccion-400.webp 400w, assets/img/curso-produccion-512.webp 512w"
-               sizes="(min-width: 860px) 34vw, 100vw" width="512" height="683"
-               alt="Mesa de mezclas con los faders en primer plano durante una sesión" loading="lazy" decoding="async">
-        </figure>
-      </article>
+    <article class="curso" id="curso-combo" data-revela>
+      <a class="curso__enlace" href="#combo">
+        <span class="curso__n t-util">08</span>
+        <h3 class="t-rotulo curso__nombre">Combo RSM</h3>
+        <span class="t-credito curso__prof">Maga Lion · David Arribas</span>
+        <span class="curso__flecha" aria-hidden="true">→</span>
+      </a>
+      <div class="curso__detalle">
+        <p class="t-cuerpo">
+          El <strong>«Combo RSM»</strong> es un curso de clases presenciales en el que formarás
+          parte de una banda de reggae, acompañado de <strong>dos profesores con una larga
+          trayectoria en el género y en la educación musical:</strong> Maga Lion (Emeterians) y
+          David Arribas (Downtown Beat). Si siempre has tenido <strong>ganas de tener un grupo
+          musical de reggae</strong> y no sabías por dónde empezar, este es tu curso.
+        </p>
+        <img src="assets/img/prof-combo-560.webp" width="560" height="560"
+             alt="Cartel del Curso de Combo de Reggae School Madrid" loading="lazy" decoding="async">
+      </div>
+    </article>
+  </div>
+</section>
 
-      <article class="caja caja--combo revelar" id="curso-combo">
-        <div class="caja__cuerpo">
-          <p class="t-credito caja__credito">Combo RSM <span aria-hidden="true">—</span> Maga Lion / David Arribas</p>
-          <h3 class="t-rotulo caja__rotulo">Combo RSM</h3>
-          <p class="t-cuerpo caja__texto">
-            El <strong>«Combo RSM»</strong> es un curso de clases presenciales en el que formarás parte de una banda de
-            reggae, acompañado de <strong>dos profesores con una larga trayectoria en el género y en la educación
-            musical:</strong> Maga Lion (Emeterians) y David Arribas (Downtown Beat). Si siempre has tenido
-            <strong>ganas de tener un grupo musical de reggae</strong> y no sabías por dónde empezar, este es tu curso.
-          </p>
-          <a class="boton" href="#reserva">Más info</a>
-        </div>
-        <figure class="caja__foto caja__foto--cartel">
-          <img src="assets/img/combo-cartel-900.webp"
-               srcset="assets/img/combo-cartel-600.webp 600w, assets/img/combo-cartel-900.webp 900w"
-               sizes="(min-width: 860px) 34vw, 100vw" width="900" height="506"
-               alt="Cartel del Curso de Combo de Reggae School Madrid, impartido por Maga Lion (Emeterians) y David Arribas (Downtown Beat). Clase semanal de dos horas, centro de Madrid, backline incluido."
-               loading="lazy" decoding="async">
-        </figure>
-      </article>
+<!-- ======================= COMBO RSM destacado ======================= -->
+<section class="combo" id="combo" aria-labelledby="combo-t">
+  <div class="combo__fondo" aria-hidden="true">
+    <img src="assets/img/esc-directo-1091.webp" width="1091" height="613" alt=""
+         loading="lazy" decoding="async">
+  </div>
+  <div class="envoltura combo__int">
+    <div class="combo__texto" data-revela>
+      <p class="t-credito cabeza__eyebrow">El curso presencial</p>
+      <h2 class="t-rotulo" id="combo-t">Toca en una banda<br>desde el primer mes</h2>
+      <p class="t-guia">
+        El Combo RSM es el curso en el que no ensayas solo en tu cuarto: entras en una banda de
+        reggae con <strong>Maga Lion</strong> y <strong>David Arribas</strong> delante.
+      </p>
+      <ul class="combo__datos t-credito">
+        <li>Clase semanal de 2 h</li>
+        <li>Centro de Madrid</li>
+        <li>Backline incluido</li>
+      </ul>
+      <a class="boton boton--solido" href="#reserva">Quiero entrar en el Combo</a>
+    </div>
 
+    <div class="combo__requisitos" data-revela>
+      <p class="t-credito combo__req-t">Lo que hace falta</p>
+      <ul class="combo__lista">
+        <li><span class="t-util">01</span> Dos horas libres a la semana</li>
+        <li><span class="t-util">02</span> Vivir en Madrid</li>
+        <li><span class="t-util">03</span> Instrumento propio</li>
+        <li><span class="t-util">04</span> Conocimientos básicos</li>
+      </ul>
     </div>
   </div>
 </section>
 
-<!-- ============================ TARIFAS ============================ -->
-<section class="tarifas claro" id="tarifas" aria-labelledby="tarifas-titulo">
+<!-- ======================= CÓMO FUNCIONA ======================= -->
+<section class="seccion metodo" aria-labelledby="metodo-t">
   <div class="envoltura">
-    <header class="cabeza-seccion revelar">
-      <h2 class="t-seccion" id="tarifas-titulo">Formatos y tarifas</h2>
-      <p class="t-cuerpo cabeza-seccion__bajada">
-        Estas son las tarifas de nuestros cursos online y presenciales. Las clases presenciales se imparten en
-        Madrid o Barcelona (saxo o piano).
+    <header class="cabeza" data-revela>
+      <p class="t-credito cabeza__eyebrow">El método</p>
+      <h2 class="t-seccion" id="metodo-t">Cómo se aprende aquí</h2>
+      <p class="t-guia">
+        Se trabaja con las canciones que te gustan, combinadas con los ejercicios de técnica y la
+        teoría que esas canciones necesitan. El material se adapta a tu nivel.
       </p>
     </header>
 
-    <div class="modalidades revelar">
+    <ol class="pasos">
+      <li class="paso" data-revela>
+        <span class="t-cifra paso__n">01</span>
+        <h3 class="t-credito paso__t">Reservas una sesión de prueba</h3>
+        <p class="t-cuerpo">Cuentas qué instrumento te interesa, tu nivel y tus horarios.</p>
+      </li>
+      <li class="paso" data-revela>
+        <span class="t-cifra paso__n">02</span>
+        <h3 class="t-credito paso__t">Eliges formato</h3>
+        <p class="t-cuerpo">Online o presencial, semanal o quincenal. Sin matrícula.</p>
+      </li>
+      <li class="paso" data-revela>
+        <span class="t-cifra paso__n">03</span>
+        <h3 class="t-credito paso__t">Tocas tus canciones</h3>
+        <p class="t-cuerpo">El profesor construye el material a partir de la música que te gusta.</p>
+      </li>
+      <li class="paso" data-revela>
+        <span class="t-cifra paso__n">04</span>
+        <h3 class="t-credito paso__t">Te subes a una jam</h3>
+        <p class="t-cuerpo">La escuela organiza jam sessions para que toques con otros alumnos.</p>
+      </li>
+    </ol>
+  </div>
+</section>
+
+<!-- ======================= TARIFAS ======================= -->
+<section class="tarifas claro" id="tarifas" aria-labelledby="tarifas-t">
+  <div class="envoltura">
+    <header class="cabeza" data-revela>
+      <p class="t-credito cabeza__eyebrow">Formatos y tarifas</p>
+      <h2 class="t-seccion" id="tarifas-t">Sin matrícula. Solo la cuota.</h2>
+      <p class="t-guia">
+        Estas son las tarifas de nuestros cursos online y presenciales. Las clases presenciales se
+        imparten en Madrid o Barcelona (saxo o piano).
+      </p>
+    </header>
+
+    <div class="modalidades" data-revela>
       <div class="modalidad">
-        <h3 class="t-credito modalidad__titulo">Online</h3>
+        <h3 class="t-credito modalidad__t">Online</h3>
         <p class="t-cuerpo">
           Disfruta de la <strong>comodidad</strong> de los <strong>cursos online</strong>. Clases
-          <strong>individuales</strong> y personalizadas que te permiten <strong>aprender a tu ritmo</strong>
-          estés donde estés.
+          <strong>individuales</strong> y personalizadas que te permiten <strong>aprender a tu
+          ritmo</strong> estés donde estés.
         </p>
       </div>
       <div class="modalidad">
-        <h3 class="t-credito modalidad__titulo">Presencial</h3>
+        <h3 class="t-credito modalidad__t">Presencial</h3>
         <p class="t-cuerpo">
-          <strong>Aprovecha al máximo tu potencial</strong> con nuestros <strong>cursos presenciales</strong> y
-          podrás disfrutar de un método más cercano centrado en ti.
+          <strong>Aprovecha al máximo tu potencial</strong> con nuestros <strong>cursos
+          presenciales</strong> y podrás disfrutar de un método más cercano centrado en ti.
         </p>
       </div>
     </div>
 
-    <div class="planes revelar">
-      <article class="plan">
-        <h3 class="t-seccion plan__titulo">Clases semanales</h3>
-        <p class="t-cuerpo plan__texto">
+    <div class="planes">
+      <article class="plan plan--destacado" data-revela>
+        <p class="t-util plan__etiqueta">Más elegido</p>
+        <h3 class="t-seccion plan__t">Clases semanales</h3>
+        <p class="t-cuerpo plan__d">
           <strong>Impulsa tu nivel</strong> con clases semanales, favoreciendo un
           <strong>aprendizaje progresivo</strong> e interiorizado del instrumento.
         </p>
-        <p class="t-util plan__frecuencia">Frecuencia semanal</p>
-        <p class="plan__precio"><span class="t-cifra">100€</span><span class="t-util plan__mes">/mes</span></p>
+        <p class="plan__precio">
+          <span class="t-cifra">100€</span><span class="t-util plan__mes">/mes</span>
+        </p>
+        <p class="t-util plan__nota">Frecuencia semanal · sin matrícula</p>
         <a class="boton" href="#reserva">Me interesa</a>
       </article>
 
-      <article class="plan">
-        <h3 class="t-seccion plan__titulo">Clases quincenales</h3>
-        <p class="t-cuerpo plan__texto">
-          <strong>Para agendas apretadas. Nos adaptamos a tu horario y te damos las claves para generar una rutina
-          de práctica a lo largo de la semana.</strong>
+      <article class="plan" data-revela>
+        <h3 class="t-seccion plan__t">Clases quincenales</h3>
+        <p class="t-cuerpo plan__d">
+          <strong>Para agendas apretadas. Nos adaptamos a tu horario y te damos las claves para
+          generar una rutina de práctica a lo largo de la semana.</strong>
         </p>
-        <p class="t-util plan__frecuencia">Frecuencia quincenal</p>
-        <p class="plan__precio"><span class="t-cifra">60€</span><span class="t-util plan__mes">/mes</span></p>
+        <p class="plan__precio">
+          <span class="t-cifra">60€</span><span class="t-util plan__mes">/mes</span>
+        </p>
+        <p class="t-util plan__nota">Frecuencia quincenal · sin matrícula</p>
         <a class="boton" href="#reserva">Me interesa</a>
       </article>
     </div>
   </div>
 </section>
 
-<!-- ============================ NEWSLETTER ============================ -->
-<section class="news" aria-labelledby="news-titulo">
-  <div class="envoltura news__interior">
-    <h2 class="t-seccion news__titulo" id="news-titulo">Suscríbete para recibir nuestra newsletter</h2>
-    <form class="news__form" novalidate>
-      <label class="solo-lectores" for="f-news">Dirección de correo electrónico</label>
-      <input id="f-news" type="email" placeholder="Dirección de correo electrónico" autocomplete="email">
-      <button class="boton boton--solido" type="submit">Suscribirse</button>
-    </form>
-  </div>
-</section>
-
-<!-- ============================ ALUMNADO ============================ -->
-<section class="seccion alumnado" id="alumnado" aria-labelledby="alumnado-titulo">
+<!-- ======================= ALUMNADO ======================= -->
+<section class="seccion alumnado" aria-labelledby="alum-t">
   <div class="envoltura">
-    <header class="cabeza-seccion revelar">
-      <h2 class="t-seccion" id="alumnado-titulo">¿Qué opina nuestro alumnado?</h2>
+    <header class="cabeza" data-revela>
+      <p class="t-credito cabeza__eyebrow">¿Qué opina nuestro alumnado?</p>
+      <h2 class="t-seccion" id="alum-t">Lo que cuentan quienes ya tocan</h2>
     </header>
 
     <div class="opiniones">
-      <figure class="opinion revelar">
+      <figure class="opinion opinion--ancha" data-revela>
         <blockquote class="t-cuerpo">
-          <p>Soy afortunado de haber encontrado esta opción online ya que <strong>vivo en Alemania</strong>. Con total
-          cercanía y dinamismo, a través de Javier Ochoa, estoy aprendiendo a tocar el teclado con la música que más
-          me gusta, el reggae.</p>
-          <p>Todo un acierto. Siempre flexible y con las clases preparadas hacen que una hora pase volando.
-          100% recomendable.</p>
+          <p>Soy afortunado de haber encontrado esta opción online ya que <strong>vivo en
+          Alemania</strong>. Con total cercanía y dinamismo, a través de Javier Ochoa, estoy
+          aprendiendo a tocar el teclado con la música que más me gusta, el reggae.</p>
+          <p>Todo un acierto. Siempre flexible y con las clases preparadas hacen que una hora pase
+          volando. 100% recomendable.</p>
         </blockquote>
         <figcaption class="opinion__pie">
-          <img src="assets/img/alumno-oscar-120.webp" width="48" height="48" alt="" loading="lazy" decoding="async">
-          <span class="t-credito">Oscar Villar</span>
+          <img src="assets/img/alumno-oscar-120.webp" width="44" height="44" alt="" loading="lazy" decoding="async">
+          <span><span class="t-credito">Oscar Villar</span>
+          <span class="t-util opinion__meta">Alumno online desde Alemania</span></span>
         </figcaption>
       </figure>
 
-      <figure class="opinion revelar">
+      <figure class="opinion" data-revela>
         <blockquote class="t-cuerpo">
-          <p>Las clases de producción en Reggae School Madrid te brindan la oportunidad de conocer y asimilar toda la
-          teoría y práctica de este estilo musical y de la música en general.</p>
-          <p>Ves todo el proceso desde antes de empezar el tema hasta que lo escuchas, lo que hace imprescindible para
-          cualquier persona que quiera componer.</p>
+          <p>Muy agradecido con este proyecto. Se nota que el equipo es apasionado en el género y
+          profesional en la docencia. En apenas dos meses con Javier Ochoa, he notado mucha mejora,
+          soltura y seguridad en las teclas. Hace que disfrutes a la hora de aprender y tengas ganas
+          de seguir formándote. El próximo curso sigo sin dudarlo.</p>
         </blockquote>
         <figcaption class="opinion__pie">
-          <img src="assets/img/alumno-truekes-120.webp" width="48" height="48" alt="" loading="lazy" decoding="async">
-          <span class="t-credito">Dr. Truekes</span>
-        </figcaption>
-      </figure>
-
-      <figure class="opinion revelar">
-        <blockquote class="t-cuerpo">
-          <p>Muy agradecido con este proyecto. Se nota que el equipo es apasionado en el género y profesional en la
-          docencia. En apenas dos meses con Javier Ochoa, he notado mucha mejora, soltura y seguridad en las teclas.
-          Hace que disfrutes a la hora de aprender y tengas ganas de seguir formándote. El próximo curso sigo sin
-          dudarlo.</p>
-        </blockquote>
-        <figcaption class="opinion__pie">
-          <img src="assets/img/alumno-sergio-120.webp" width="48" height="48" alt="" loading="lazy" decoding="async">
+          <img src="assets/img/alumno-sergio-120.webp" width="44" height="44" alt="" loading="lazy" decoding="async">
           <span class="t-credito">Sergio Caño</span>
         </figcaption>
       </figure>
 
-      <figure class="opinion revelar">
+      <figure class="opinion" data-revela>
         <blockquote class="t-cuerpo">
-          <p>Reggae School Madrid ha sido lo mejor que me ha pasado en mi proceso musical.</p>
-          <p>Te acompañan profesores excelentes que comparten sus experiencias y todo su conocimiento para que tu
-          camino por el Reggae sea más fácil y satisfactorio. ¡Te saben enseñar, animar y sacar lo mejor de ti!</p>
+          <p>Las clases de producción en Reggae School Madrid te brindan la oportunidad de conocer y
+          asimilar toda la teoría y práctica de este estilo musical y de la música en general.</p>
+          <p>Ves todo el proceso desde antes de empezar el tema hasta que lo escuchas, lo que hace
+          imprescindible para cualquier persona que quiera componer.</p>
         </blockquote>
         <figcaption class="opinion__pie">
-          <img src="assets/img/alumno-natalia-120.webp" width="48" height="48" alt="" loading="lazy" decoding="async">
+          <img src="assets/img/alumno-truekes-120.webp" width="44" height="44" alt="" loading="lazy" decoding="async">
+          <span class="t-credito">Dr. Truekes</span>
+        </figcaption>
+      </figure>
+
+      <figure class="opinion" data-revela>
+        <blockquote class="t-cuerpo">
+          <p>Reggae School Madrid ha sido lo mejor que me ha pasado en mi proceso musical.</p>
+          <p>Te acompañan profesores excelentes que comparten sus experiencias y todo su
+          conocimiento para que tu camino por el Reggae sea más fácil y satisfactorio. ¡Te saben
+          enseñar, animar y sacar lo mejor de ti!</p>
+        </blockquote>
+        <figcaption class="opinion__pie">
+          <img src="assets/img/alumno-natalia-120.webp" width="44" height="44" alt="" loading="lazy" decoding="async">
           <span class="t-credito">Natalia Nazo</span>
         </figcaption>
       </figure>
@@ -468,61 +621,150 @@
   </div>
 </section>
 
-<!-- ============================ NOTICIAS ============================ -->
-<section class="seccion noticias" id="noticias" aria-labelledby="noticias-titulo">
-  <div class="envoltura">
-    <header class="cabeza-seccion revelar">
-      <h2 class="t-seccion" id="noticias-titulo">Noticias de RSM</h2>
+<!-- ======================= PREGUNTAS ======================= -->
+<section class="seccion faq" id="faq" aria-labelledby="faq-t">
+  <div class="envoltura faq__int">
+    <header class="cabeza" data-revela>
+      <p class="t-credito cabeza__eyebrow">Preguntas frecuentes</p>
+      <h2 class="t-seccion" id="faq-t">Lo que se suele preguntar</h2>
     </header>
 
-    <div class="noticias__pila">
-      <article class="noticia revelar">
+    <div class="faq__lista" data-faq data-revela>
+      <details>
+        <summary><span>¿Necesito saber tocar?</span></summary>
+        <p class="t-cuerpo">No. Los cursos van desde cero y el material se adapta a tu nivel:
+          se trabaja con las canciones que te gustan y la técnica que esas canciones piden.</p>
+      </details>
+      <details>
+        <summary><span>¿Las clases son individuales?</span></summary>
+        <p class="t-cuerpo">Sí. Las clases de instrumento son individuales y personalizadas.
+          El Combo RSM es el único grupal, porque es una banda.</p>
+      </details>
+      <details>
+        <summary><span>¿Dónde son las clases presenciales?</span></summary>
+        <p class="t-cuerpo">En el centro de Madrid. Saxo y teclado también en Barcelona,
+          con Pol Prats.</p>
+      </details>
+      <details>
+        <summary><span>¿Hay que pagar matrícula?</span></summary>
+        <p class="t-cuerpo">No hay matrícula. Solo la cuota mensual: 100 € en clase semanal
+          o 60 € en quincenal.</p>
+      </details>
+      <details>
+        <summary><span>¿Y si vivo fuera de España?</span></summary>
+        <p class="t-cuerpo">Los cursos online son para cualquier sitio. Hay alumnos siguiéndolos
+          desde fuera de España.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ======================= RESERVA ======================= -->
+<section class="reserva" id="reserva" aria-labelledby="reserva-t">
+  <div class="envoltura reserva__int">
+    <div class="reserva__texto" data-revela>
+      <p class="t-credito cabeza__eyebrow">Sesión de prueba</p>
+      <h2 class="t-rotulo" id="reserva-t">Empieza por<br>una clase</h2>
+      <p class="t-guia">
+        Cuéntanos qué instrumento te interesa y te decimos por dónde empezar.
+      </p>
+      <ul class="reserva__sellos t-credito">
+        <li>Sin matrícula</li>
+        <li>Online o presencial</li>
+        <li>Desde cero</li>
+      </ul>
+    </div>
+
+    <form class="form claro" data-revela novalidate>
+      <div class="campo">
+        <label class="t-util" for="f-nombre">Nombre <span>(obligatorio)</span></label>
+        <input id="f-nombre" name="nombre" type="text" required autocomplete="name">
+      </div>
+      <div class="campo">
+        <label class="t-util" for="f-mail">Mail <span>(obligatorio)</span></label>
+        <input id="f-mail" name="mail" type="email" required autocomplete="email">
+      </div>
+      <div class="campo">
+        <label class="t-util" for="f-tel">Teléfono <span>(obligatorio)</span></label>
+        <input id="f-tel" name="telefono" type="tel" required autocomplete="tel">
+      </div>
+      <div class="campo">
+        <label class="t-util" for="f-inst">Instrumento <span>(obligatorio)</span></label>
+        <select id="f-inst" name="instrumento" required>
+          <option value="">Seleccionar una opción</option>
+          <option>Voz</option><option>Guitarra</option><option>Teclado</option>
+          <option>Saxo</option><option>Bajo</option><option>Batería</option>
+          <option>Producción y mezcla</option><option>Combo RSM</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label class="t-util" for="f-mod">Modalidad</label>
+        <select id="f-mod" name="modalidad">
+          <option value="">Seleccionar una opción</option>
+          <option>Semanal Online</option><option>Semanal Presencial</option>
+          <option>Quincenal Online</option><option>Quincenal Presencial</option>
+        </select>
+      </div>
+      <div class="campo">
+        <label class="t-util" for="f-loc">Localización</label>
+        <input id="f-loc" name="localizacion" type="text">
+      </div>
+      <div class="campo campo--ancho">
+        <label class="t-util" for="f-com">Comentarios</label>
+        <textarea id="f-com" name="comentarios" rows="3"></textarea>
+      </div>
+      <div class="campo campo--ancho campo--check">
+        <input id="f-rgpd" name="rgpd" type="checkbox" required>
+        <label for="f-rgpd">Acepto la <a href="#faq">política de privacidad</a> y el tratamiento
+          de mis datos para responder a esta solicitud.</label>
+      </div>
+      <div class="campo campo--ancho">
+        <button class="boton boton--solido form__enviar" type="submit">Enviar</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- ======================= NOTICIAS ======================= -->
+<section class="seccion noticias" aria-labelledby="not-t">
+  <div class="envoltura">
+    <header class="cabeza" data-revela>
+      <p class="t-credito cabeza__eyebrow">Noticias de RSM</p>
+      <h2 class="t-seccion" id="not-t">La escuela por ahí fuera</h2>
+    </header>
+
+    <div class="noticias__lista">
+      <article class="noticia" data-revela>
         <p class="t-util noticia__fecha"><time datetime="2022-12-28">28 diciembre, 2022</time></p>
-        <h3 class="noticia__titulo">¡Feliz 2023!</h3>
-        <p class="t-cuerpo noticia__texto">Good vibes &amp; music. Sería resumir el ’22 y pedir lo mismo para en ’23 en
-          4 palabras. Lo mejor, que estéis ahí, apoyando el proyecto y apostando por una enseñanza cercana y de calidad.
-          De corazón, y de parte de todo el equipo de RSM: GRACIAS</p>
-        <a class="t-util noticia__enlace" href="#noticias">Sigue leyendo</a>
+        <h3 class="noticia__t">¡Feliz 2023!</h3>
+        <p class="t-cuerpo noticia__d">Good vibes &amp; music. Sería resumir el ’22 y pedir lo mismo
+          para en ’23 en 4 palabras. Lo mejor, que estéis ahí, apoyando el proyecto y apostando por
+          una enseñanza cercana y de calidad. De corazón, y de parte de todo el equipo de RSM: GRACIAS</p>
+        <a class="t-util noticia__link" href="#noticias">Sigue leyendo</a>
       </article>
-
-      <article class="noticia revelar">
+      <article class="noticia" data-revela>
         <p class="t-util noticia__fecha"><time datetime="2022-10-24">24 octubre, 2022</time></p>
-        <h3 class="noticia__titulo">RSM en Alma de León Radio 3</h3>
-        <p class="t-cuerpo noticia__texto">Muy contentos y agradecidos de nuestro paso por Alma de León en la radio
-          nacional, donde pudimos estar el equipo completo de RSM. Allí, Miguel Caamaño y su equipo de técnicos, nos
-          hicieron sentir una vez más como en casa, en un programa muy completo donde explicamos la historia y
-          funcionamiento de nuestra escuela y…</p>
-        <a class="t-util noticia__enlace" href="#noticias">Sigue leyendo</a>
+        <h3 class="noticia__t">RSM en Alma de León, Radio 3</h3>
+        <p class="t-cuerpo noticia__d">Muy contentos y agradecidos de nuestro paso por Alma de León
+          en la radio nacional, donde pudimos estar el equipo completo de RSM. Allí, Miguel Caamaño y
+          su equipo de técnicos, nos hicieron sentir una vez más como en casa…</p>
+        <a class="t-util noticia__link" href="#noticias">Sigue leyendo</a>
       </article>
-
-      <article class="noticia revelar">
+      <article class="noticia" data-revela>
         <p class="t-util noticia__fecha"><time datetime="2022-10-21">21 octubre, 2022</time></p>
-        <h3 class="noticia__titulo">Nuevo profesor de saxo, Pol Prats</h3>
-        <p class="t-cuerpo noticia__texto">Es una alegría anunciar la incorporación al equipo docente de Pol Prats, un
-          saxofonista residente en Barcelona con gran trayectoria en el mundo del reggae y el ska. Ha sido profesor
-          durante 5 años del proyecto Escola de Blues de Barcelona, escuela pionera enfocada al género donde imparte
-          clases de Saxo, Sax Project Big Band y Lenguaje Musical y en la escuela…</p>
-        <a class="t-util noticia__enlace" href="#noticias">Sigue leyendo</a>
+        <h3 class="noticia__t">Nuevo profesor de saxo, Pol Prats</h3>
+        <p class="t-cuerpo noticia__d">Es una alegría anunciar la incorporación al equipo docente de
+          Pol Prats, un saxofonista residente en Barcelona con gran trayectoria en el mundo del
+          reggae y el ska. Ha sido profesor durante 5 años del proyecto Escola de Blues de Barcelona…</p>
+        <a class="t-util noticia__link" href="#noticias">Sigue leyendo</a>
       </article>
-
-      <article class="noticia revelar">
+      <article class="noticia" data-revela>
         <p class="t-util noticia__fecha"><time datetime="2022-10-21">21 octubre, 2022</time></p>
-        <h3 class="noticia__titulo">Jam Session Vol.2 en Rock Palace</h3>
-        <p class="t-cuerpo noticia__texto">Reggae School Madrid celebramos el comienzo de curso por todo lo alto. Un
-          evento a la hora del vermú muy especial en forma de Jam al que te invitamos a venir, tocar, cantar y apoyar
-          este proyecto educativo y cultural de la ciudad de Madrid. Estaremos como banda base el equipo de RSM haciendo
-          un repaso…</p>
-        <a class="t-util noticia__enlace" href="#noticias">Sigue leyendo</a>
-      </article>
-
-      <article class="noticia revelar">
-        <p class="t-util noticia__fecha"><time datetime="2020-10-13">13 octubre, 2020</time></p>
-        <h3 class="noticia__titulo">Hello there</h3>
-        <p class="t-cuerpo noticia__texto">Os quiero dar la bienvenida a este pequeño gran blog de Reggae School Madrid.
-          Este es vuestro espacio donde podéis comentar y proponer lo que queráis sobre el Reggae y la cultura afro
-          caribeña. Me gustaría que entre todos definamos qué temas son interesantes para vosotros. Por ejemplo
-          podíamos crear un hilo sobre RECETAS COMIDA…</p>
-        <a class="t-util noticia__enlace" href="#noticias">Sigue leyendo</a>
+        <h3 class="noticia__t">Jam Session Vol.2 en Rock Palace</h3>
+        <p class="t-cuerpo noticia__d">Reggae School Madrid celebramos el comienzo de curso por todo
+          lo alto. Un evento a la hora del vermú muy especial en forma de Jam al que te invitamos a
+          venir, tocar, cantar y apoyar este proyecto educativo y cultural de la ciudad de Madrid…</p>
+        <a class="t-util noticia__link" href="#noticias">Sigue leyendo</a>
       </article>
     </div>
   </div>
@@ -530,25 +772,42 @@
 
 </main>
 
-<!-- ============================ PIE ============================ -->
-<footer class="pie" id="rrss">
-  <div class="envoltura pie__interior">
-    <div class="pie__bloque">
-      <h2 class="t-seccion pie__titulo">RRSS</h2>
+<!-- ======================= PIE ======================= -->
+<footer class="pie">
+  <div class="envoltura pie__int">
+    <div class="pie__col">
+      <img class="pie__logo" src="assets/img/logo-240.webp" width="72" height="72" alt="" loading="lazy" decoding="async">
+      <p class="t-cuerpo pie__lema">Educación musical desde el reggae.<br>Madrid y online.</p>
+    </div>
+
+    <nav class="pie__col" aria-label="Secciones">
+      <h2 class="t-util pie__t">Cursos</h2>
+      <ul class="pie__lista t-credito">
+        <li><a href="#curso-guitarra">Guitarra</a></li>
+        <li><a href="#curso-bajo">Bajo</a></li>
+        <li><a href="#curso-canto">Canto</a></li>
+        <li><a href="#curso-saxo">Saxo</a></li>
+        <li><a href="#curso-teclado">Teclado</a></li>
+        <li><a href="#curso-bateria">Batería</a></li>
+        <li><a href="#curso-produccion">Producción y mezcla</a></li>
+        <li><a href="#combo">Combo RSM</a></li>
+      </ul>
+    </nav>
+
+    <div class="pie__col">
+      <h2 class="t-util pie__t">Contacto</h2>
+      <p class="t-credito pie__mail">
+        <a href="mailto:reggaeschoolmadrid@gmail.com">reggaeschoolmadrid@gmail.com</a>
+      </p>
       <ul class="pie__redes t-credito">
         <li><a href="https://www.facebook.com/reggaeschoolmadrid">Facebook</a></li>
         <li><a href="https://www.instagram.com/reggaeschoolmadrid/">Instagram</a></li>
         <li><a href="https://www.youtube.com/channel/UCNSFSKC_9hNB4wqtihIZoTg">YouTube</a></li>
       </ul>
-      <p class="t-credito pie__correo">
-        <a href="mailto:reggaeschoolmadrid@gmail.com">reggaeschoolmadrid@gmail.com</a>
-      </p>
     </div>
-
-    <p class="pie__marca t-rotulo" aria-hidden="true">
-      Reggae<br>School<br>Madrid<span class="pie__punto"></span>
-    </p>
   </div>
+
+  <p class="t-mega pie__marca" aria-hidden="true">Reggae School Madrid</p>
 
   <p class="t-util pie__nota">
     Propuesta de rediseño · Juan Jurado · Los textos y las fotografías pertenecen a Reggae School Madrid
