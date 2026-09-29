@@ -15,23 +15,25 @@ la home se construye como una sesión de dub:
 - **Los ocho cursos son los ocho canales de una mesa de mezclas.** Vúmetro, fader, botón SOLO y
   cinta con el nombre. Elegir canal abre el curso con el texto del cliente íntegro. Es un
   `tablist` accesible y en móvil caben los ocho canales.
-- **La web suena.** Un one drop a 75 BPM sintetizado con Web Audio, sin archivos de audio. Con la
-  mesa, SOLO aísla bajo, batería, guitarra o teclado; Producción añade eco dub. Solo arranca con
-  un clic y se pausa desde un mini reproductor.
+- **La web suena.** Un one drop a 75 BPM sintetizado con Web Audio, sin archivos de audio, con
+  todos los instrumentos a la vez. Cada canal deja sonar solo el suyo; Producción es la mezcla dub
+  con el DJ (sirena y bocina) y Combo RSM, la banda entera. Solo arranca con un clic.
 - **Todo va a tempo**: negra 800 ms, semicorchea 200 ms. Eco dub en los titulares, un compás de
   cuatro tiempos con el acento en el 3 y un altavoz que late con el bombo mientras suena.
-- **Papel crema y tinta**, con su paleta (`#fbe6aa`, `#1d1e1e`, `#364043`) y el rojo de su
-  cartel del Combo. Fraunces, Instrument Sans y Martian Mono.
+- **Negro y blanco** como colores principales (`#1d1e1e`, `#ffffff`) y el **rojo** de su cartel del
+  Combo (`#b8312b`) para resaltar. Fraunces, Instrument Sans y Martian Mono.
 
 Solo se animan `transform` y `opacity`. Sin bucles decorativos. `prefers-reduced-motion`
 respetado.
 
 ## Qué añade frente a su home
 
-Profesorado con créditos verificados (Emeterians, Ska-P, Rototom, Escola de Blues), el Combo RSM
-visible y con su cartel, el método en un compás, tarifas comparables con «Sin matrícula»,
-preguntas frecuentes y un formulario en tres pasos con consentimiento, que se rellena desde cada
-curso. Los textos de curso, tarifas y testimonios son los suyos, literales.
+Un hero que cabe entero en la primera pantalla de cualquier dispositivo, los ocho cursos
+comparables en la mesa (el Combo RSM con su cartel, su ficha y sus requisitos), tarifas
+comparables con «Sin matrícula», preguntas frecuentes, un formulario en tres pasos con
+consentimiento que se rellena desde cada curso, el método en un compás y sus redes sociales.
+Menú fijo que enlaza a las páginas de la web completa. Los textos de curso, tarifas y testimonios
+son los suyos, literales.
 
 ## Stack
 
