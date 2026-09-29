@@ -1,7 +1,7 @@
 /* =====================================================================
-   Reggae School Madrid — v3 "RIDDIM" · interacciones
-   Cabecera · menú · revelados · eco · mesa de mezclas · riddim ·
-   compás · opiniones · vídeo · formulario en tres pasos.
+   Reggae School Madrid — v3.1 "RIDDIM" · interacciones
+   Cabecera fija · menú · aviso de páginas futuras · revelados · eco ·
+   mesa de mezclas y riddim · compás · opiniones · vídeo · formulario.
    Solo transform y opacity. Respeta prefers-reduced-motion y ?ss.
    ===================================================================== */
 (() => {
@@ -17,7 +17,7 @@
     document.body.classList.add('cargada');
     const ecoHero = $('.hero [data-eco]');
     if (ecoHero) {
-      ecoHero.style.setProperty('--retardo', quieto() ? '0ms' : '700ms');
+      ecoHero.style.setProperty('--retardo', quieto() ? '0ms' : '600ms');
       ecoHero.classList.add('suena');
     }
   });
@@ -43,24 +43,17 @@
     ecos.forEach(el => { el.style.setProperty('--retardo', '300ms'); io.observe(el); });
   }
 
-  /* ---------------- Cabecera: fondo, ocultar al bajar ---------------- */
+  /* ---------------- Cabecera fija y barra móvil ---------------- */
   const cab = $('[data-cab]');
   const fija = $('[data-fija]');
   const hero = $('.hero');
   const reserva = $('#reserva');
-  let yPrevia = window.scrollY, pendiente = false;
+  let pendiente = false;
 
   function alDesplazar() {
     pendiente = false;
-    const y = window.scrollY;
     const menuAbierto = document.body.classList.contains('menu-abierto');
-    cab.classList.toggle('con-fondo', y > 12);
-    if (!captura && !menuAbierto) {
-      const bajando = y > yPrevia + 4, subiendo = y < yPrevia - 4;
-      if (bajando && y > 480 && !cab.contains(document.activeElement)) cab.classList.add('oculta');
-      else if (subiendo || y < 480) cab.classList.remove('oculta');
-    }
-    yPrevia = y;
+    cab.classList.toggle('con-fondo', window.scrollY > 12);
 
     // Barra fija en móvil: tras el hero y fuera del formulario
     if (fija && hero && reserva) {
@@ -75,7 +68,7 @@
     }
 
     compas();
-    sello(y);
+    sello(window.scrollY);
   }
   window.addEventListener('scroll', () => {
     if (!pendiente) { pendiente = true; requestAnimationFrame(alDesplazar); }
@@ -86,25 +79,21 @@
   const selloImg = $('[data-sello]');
   function sello(y) {
     if (!selloImg || quieto()) return;
-    const giro = -12 + Math.min(y, 900) * .045;
-    selloImg.style.transform = `rotate(${giro}deg)`;
+    selloImg.style.transform = `rotate(${-12 + Math.min(y, 900) * .045}deg)`;
   }
 
-  /* ---------------- Sección activa en la navegación ---------------- */
-  const enlacesNav = $$('.nav__lista a');
-  if ('IntersectionObserver' in window && enlacesNav.length) {
-    const porId = new Map(enlacesNav.map(a => [a.getAttribute('href').slice(1), a]));
-    const ioNav = new IntersectionObserver((entradas) => {
-      entradas.forEach(e => {
-        const a = porId.get(e.target.id);
-        if (!a) return;
-        if (e.isIntersecting) {
-          enlacesNav.forEach(x => x.removeAttribute('aria-current'));
-          a.setAttribute('aria-current', 'true');
-        } else if (a.getAttribute('aria-current')) a.removeAttribute('aria-current');
-      });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-    porId.forEach((_, id) => { const s = document.getElementById(id); if (s) ioNav.observe(s); });
+  /* ---------------- Aviso: páginas de la web completa ---------------- */
+  // El menú enlaza a las páginas de la web completa. En el prototipo aún no
+  // existen: en lugar de un 404, un aviso breve que dice qué pasará.
+  const aviso = $('[data-aviso]');
+  let avisoReloj = 0;
+  function avisar(texto) {
+    if (!aviso) return;
+    clearTimeout(avisoReloj);
+    aviso.textContent = texto;
+    aviso.classList.remove('visible');
+    requestAnimationFrame(() => requestAnimationFrame(() => aviso.classList.add('visible')));
+    avisoReloj = setTimeout(() => aviso.classList.remove('visible'), 3200);
   }
 
   /* ---------------- Menú móvil ---------------- */
@@ -115,7 +104,6 @@
   function abrirMenu() {
     menu.hidden = false;
     document.body.classList.add('menu-abierto');
-    cab.classList.remove('oculta');
     menuBtn.setAttribute('aria-expanded', 'true');
     menuTxt.textContent = 'Cerrar';
     requestAnimationFrame(() => requestAnimationFrame(() => menu.classList.add('abierto')));
@@ -123,6 +111,7 @@
     if (primero) primero.focus({ preventScroll: true });
   }
   function cerrarMenu(devolverFoco = true) {
+    if (!menu || menu.hidden) return;
     menu.classList.remove('abierto');
     document.body.classList.remove('menu-abierto');
     menuBtn.setAttribute('aria-expanded', 'false');
@@ -145,8 +134,14 @@
         else if (!e.shiftKey && i === enfocables.length - 1) { e.preventDefault(); enfocables[0].focus(); }
       }
     });
-    window.matchMedia('(min-width: 1000px)').addEventListener('change', (m) => { if (m.matches && !menu.hidden) cerrarMenu(false); });
+    window.matchMedia('(min-width: 1000px)').addEventListener('change', (m) => { if (m.matches) cerrarMenu(false); });
   }
+
+  $$('[data-proxima]').forEach(a => a.addEventListener('click', (e) => {
+    e.preventDefault();
+    cerrarMenu(false);
+    avisar(`«${a.dataset.proxima}» tendrá su propia página en la web completa.`);
+  }));
 
   /* ---------------- Mesa de mezclas: ocho canales, ocho cursos ---------------- */
   const mesa = $('[data-mesa]');
@@ -158,30 +153,26 @@
     bateria: 'Batería', produccion: 'Producción y mezcla', combo: 'Combo RSM'
   };
   const queSuena = {
-    guitarra: 'Suena la guitarra en solo: el skank en el 2 y el 4',
-    bajo: 'Suena el bajo en solo',
-    bateria: 'Suena la batería en solo: el one drop, bombo en el 3',
-    teclado: 'Suena el teclado en solo: la burbuja de órgano',
-    produccion: 'Suena la mezcla con eco dub',
-    canto: 'Suena el riddim completo, para cantar encima',
-    saxo: 'Suena el riddim completo, para tocar encima',
+    guitarra: 'Suena la guitarra: el skank en el 2 y el 4',
+    bajo: 'Suena el bajo',
+    canto: 'Suena la voz',
+    saxo: 'Suena el saxo',
+    teclado: 'Suena el teclado: la burbuja de órgano',
+    bateria: 'Suena la batería: el one drop, bombo en el 3',
+    produccion: 'Suena la producción: mezcla dub con el DJ',
     combo: 'Suena la banda entera'
   };
   let canalActual = 'guitarra';
-  // El solo del riddim solo sigue a la mesa cuando el usuario elige un canal
-  let canalAudio = null;
 
   function textoEstado() {
     if (!estado) return;
     const n = canales.findIndex(c => c.dataset.canal === canalActual) + 1;
-    if (window.Riddim && window.Riddim.sonando) {
-      estado.textContent = canalAudio ? queSuena[canalAudio] : 'Suena el riddim completo · toca un canal para oírlo en solo';
-    } else {
-      estado.textContent = `Canal ${String(n).padStart(2, '0')} · ${nombres[canalActual]}`;
-    }
+    estado.textContent = window.Riddim && window.Riddim.sonando
+      ? queSuena[canalActual]
+      : `Canal ${String(n).padStart(2, '0')} · ${nombres[canalActual]}`;
   }
 
-  function seleccionar(nombre, { animar = true, enfocar = false, usuario = true } = {}) {
+  function seleccionar(nombre, { animar = true, enfocar = false } = {}) {
     const tab = canales.find(c => c.dataset.canal === nombre);
     if (!tab) return;
     canalActual = nombre;
@@ -197,15 +188,13 @@
       if (activo && animar && !quieto()) { void a.offsetWidth; a.classList.add('entra'); }
     });
     if (enfocar) tab.focus();
-    if (usuario) {
-      canalAudio = nombre;
-      if (window.Riddim) window.Riddim.canal(nombre);
-    }
+    // En cada canal suena solo su instrumento; Combo RSM, todos
+    if (window.Riddim) window.Riddim.canal(nombre);
     textoEstado();
   }
 
   if (mesa && canales.length) {
-    seleccionar('guitarra', { animar: false, usuario: false });
+    seleccionar('guitarra', { animar: false });
 
     canales.forEach((c, i) => {
       c.addEventListener('click', (e) => { e.preventDefault(); seleccionar(c.dataset.canal); });
@@ -219,25 +208,19 @@
       });
     });
 
-    // Enlaces a un curso concreto (pie, #curso-x en la URL)
-    const irACanal = (nombre, suave = true) => {
-      seleccionar(nombre, { animar: false });
-      mesa.scrollIntoView({ behavior: suave && !quieto() ? 'smooth' : 'auto', block: 'start' });
-    };
-    $$('[data-ir-canal]').forEach(a => a.addEventListener('click', (e) => {
-      e.preventDefault();
-      irACanal(a.dataset.irCanal);
-      history.replaceState(null, '', a.getAttribute('href'));
-    }));
+    // #curso-x en la URL abre ese canal
     const hash = location.hash.replace('#curso-', '');
-    if (nombres[hash] && hash !== 'combo') setTimeout(() => irACanal(hash, false), 60);
+    if (nombres[hash]) setTimeout(() => {
+      seleccionar(hash, { animar: false });
+      mesa.scrollIntoView({ block: 'start' });
+    }, 60);
   }
 
-  /* ---------------- El riddim: botones, vúmetros y altavoz ---------------- */
+  /* ---------------- El riddim: botón, vúmetros y altavoz ---------------- */
   const togglers = $$('[data-riddim-toggle]');
   const sonandoBox = $('[data-sonando]');
-  const heroLabel = $('[data-riddim-label]');
-  const mesaLabel = $('[data-riddim-label-corto]');
+  const sonandoT = $('[data-sonando-t]');
+  const mesaLabel = $('[data-riddim-label]');
   const cono = $('[data-cono]');
   const anillos = $$('.altavoz__anillo');
   const eqBarras = $$('.sonando__eq i');
@@ -246,20 +229,13 @@
   if (!window.Riddim || !window.Riddim.soportado) {
     togglers.forEach(b => { b.hidden = true; });
   } else {
-    togglers.forEach(b => b.addEventListener('click', () => {
-      // Desde el hero suena siempre la banda entera; desde la mesa, lo que haya elegido
-      if (!window.Riddim.sonando && b.classList.contains('riddim-btn')) {
-        canalAudio = null;
-        window.Riddim.canal(null);
-      }
-      window.Riddim.alternar();
-    }));
+    togglers.forEach(b => b.addEventListener('click', () => window.Riddim.alternar()));
 
     window.Riddim.alCambiar((suena) => {
       togglers.forEach(b => b.setAttribute('aria-pressed', String(suena)));
-      if (heroLabel) heroLabel.textContent = suena ? 'Pausar el riddim' : 'Escucha un one drop';
-      if (mesaLabel) mesaLabel.textContent = suena ? 'Pausa' : 'Riddim';
+      if (mesaLabel) mesaLabel.textContent = suena ? 'Pausa' : 'Escuchar el canal';
       if (mesa) mesa.classList.toggle('sonando-mesa', suena);
+      if (sonandoT) sonandoT.textContent = nombres[canalActual];
       if (sonandoBox) {
         if (suena) {
           sonandoBox.hidden = false;
@@ -279,23 +255,21 @@
     });
 
     window.Riddim.alNivel((n) => {
-      const mezcla = Math.max(n.bateria, n.bajo, n.guitarra, n.teclado);
+      const todo = Math.max(n.bateria, n.bajo, n.guitarra, n.teclado, n.saxo, n.canto, n.dj);
       const porCanal = {
-        guitarra: n.guitarra, bajo: n.bajo, bateria: n.bateria, teclado: n.teclado,
-        canto: 0, saxo: 0, produccion: mezcla, combo: mezcla
+        guitarra: n.guitarra, bajo: n.bajo, canto: n.canto, saxo: n.saxo, teclado: n.teclado,
+        bateria: n.bateria, produccion: Math.max(n.bateria, n.bajo, n.dj), combo: todo
       };
       vus.forEach((v, k) => {
         if (!v) return;
-        const nivel = Math.min(1, .04 + porCanal[k] * .92);
-        v.style.transform = `scaleY(${nivel.toFixed(3)})`;
+        v.style.transform = `scaleY(${Math.min(1, .04 + porCanal[k] * .92).toFixed(3)})`;
       });
+      if (sonandoT) sonandoT.textContent = nombres[canalActual];
       if (!reducido.matches) {
         if (cono) cono.style.transform = `scale(${(1 + n.bombo * .028).toFixed(4)})`;
-        anillos.forEach((a, i) => {
-          a.style.transform = `scale(${(1 + n.bombo * .035 * (i + 1)).toFixed(4)})`;
-        });
+        anillos.forEach((a, i) => { a.style.transform = `scale(${(1 + n.bombo * .035 * (i + 1)).toFixed(4)})`; });
       }
-      const eq = [n.bateria, n.bajo, Math.max(n.guitarra, n.teclado)];
+      const eq = [n.bateria, Math.max(n.bajo, n.canto), Math.max(n.guitarra, n.teclado, n.saxo, n.dj)];
       eqBarras.forEach((b, i) => { b.style.transform = `scaleY(${(.2 + eq[i] * .8).toFixed(3)})`; });
     });
   }
@@ -311,7 +285,6 @@
     if (!compasEl || !compasEl.classList.contains('vivo')) return;
     const r = compasEl.getBoundingClientRect();
     const vh = window.innerHeight;
-    // 0 cuando el compás asoma por abajo, 1 cuando su final pasa el 45 % de la pantalla
     const p = Math.min(1, Math.max(0, (vh * .78 - r.top) / (r.height * .9)));
     const linea = $('.compas__linea', compasEl);
     if (escritorio.matches) {
@@ -336,17 +309,16 @@
     const tarjetas = $$('.opinion', pista);
     const [atras, alante] = $$('[data-opiniones-ir]', navOp);
     const indice = () => {
-      const x = pista.scrollLeft;
+      const x = pista.scrollLeft + parseFloat(getComputedStyle(pista).paddingLeft || 0);
       let mejor = 0, dist = Infinity;
       tarjetas.forEach((t, i) => {
-        const d = Math.abs(t.offsetLeft - pista.offsetLeft - x - parseFloat(getComputedStyle(pista).paddingLeft || 0));
+        const d = Math.abs(t.offsetLeft - pista.offsetLeft - x);
         if (d < dist) { dist = d; mejor = i; }
       });
       return mejor;
     };
     const actualizar = () => {
-      const hayMas = pista.scrollWidth > pista.clientWidth + 4;
-      navOp.hidden = !hayMas;
+      navOp.hidden = !(pista.scrollWidth > pista.clientWidth + 4);
       const fin = pista.scrollLeft + pista.clientWidth >= pista.scrollWidth - 4;
       const i = fin ? tarjetas.length - 1 : indice();
       if (cuenta) cuenta.textContent = `${i + 1} / ${tarjetas.length}`;
@@ -355,8 +327,7 @@
     };
     $$('[data-opiniones-ir]', navOp).forEach(b => b.addEventListener('click', () => {
       const i = Math.max(0, Math.min(tarjetas.length - 1, indice() + Number(b.dataset.opinionesIr)));
-      const destino = tarjetas[i].offsetLeft - tarjetas[0].offsetLeft;
-      pista.scrollTo({ left: destino, behavior: quieto() ? 'auto' : 'smooth' });
+      pista.scrollTo({ left: tarjetas[i].offsetLeft - tarjetas[0].offsetLeft, behavior: quieto() ? 'auto' : 'smooth' });
     }));
     let pend = false;
     pista.addEventListener('scroll', () => { if (!pend) { pend = true; requestAnimationFrame(() => { pend = false; actualizar(); }); } }, { passive: true });
@@ -397,7 +368,7 @@
         const activo = Number(p.dataset.paso) === n;
         p.hidden = !activo;
         p.classList.remove('entra-d', 'entra-i');
-        if (activo && !quieto()) { void p.offsetWidth; p.classList.add(direccion > 0 ? 'entra-d' : 'entra-i'); }
+        if (activo && direccion && !quieto()) { void p.offsetWidth; p.classList.add(direccion > 0 ? 'entra-d' : 'entra-i'); }
       });
       barra.style.transform = `scaleX(${n / 3})`;
       pasoN.textContent = `Paso ${n} de 3`;
@@ -421,17 +392,12 @@
       if (els[0].type === 'checkbox') return els[0].checked ? 'si' : '';
       return els[0].value.trim();
     };
-    const reglas = {
-      1: ['instrumento'],
-      2: ['modalidad', 'frecuencia'],
-      3: ['nombre', 'email', 'rgpd']
-    };
+    const reglas = { 1: ['instrumento'], 2: ['modalidad', 'frecuencia'], 3: ['nombre', 'email', 'rgpd'] };
     function valido(n) {
       let primero = null;
       reglas[n].forEach(campo => {
-        let v = valor(campo);
-        let bien = !!v;
-        if (campo === 'email') bien = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v);
+        const v = valor(campo);
+        const bien = campo === 'email' ? /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v) : !!v;
         error(campo, !bien);
         if (!bien && !primero) primero = $(`[name="${campo}"]`, form);
       });
@@ -439,7 +405,6 @@
       return !primero;
     }
 
-    // Al corregir, el error desaparece
     form.addEventListener('change', (e) => { if (e.target.name) error(e.target.name, false); });
     form.addEventListener('input', (e) => { if (e.target.name && e.target.getAttribute('aria-invalid')) error(e.target.name, false); });
 
@@ -457,13 +422,13 @@
       if (actual < 3) { bSig.click(); return; }
       if (!valido(3)) return;
       const inst = valor('instrumento'), mod = valor('modalidad').toLowerCase(), frec = valor('frecuencia').toLowerCase();
-      resumen.textContent = `Sesión de prueba de ${inst.toLowerCase() === 'combo rsm' ? 'Combo RSM' : inst.toLowerCase()}, ${mod} y ${frec}. La escuela te escribirá a ${valor('email')} para cerrar día y hora.`;
+      resumen.textContent = `Sesión de prueba de ${inst === 'Combo RSM' ? 'Combo RSM' : inst.toLowerCase()}, ${mod} y ${frec}. La escuela te escribirá a ${valor('email')} para cerrar día y hora.`;
       form.classList.add('enviado');
       ok.hidden = false;
       ok.focus();
     });
 
-    // Botones "Me interesa" / "Prueba una clase de…" rellenan el formulario
+    // «Prueba una clase de…», «Quiero entrar en el Combo» y «Me interesa» rellenan el formulario
     $$('[data-reserva]').forEach(a => a.addEventListener('click', () => {
       const inst = a.dataset.instrumento, frec = a.dataset.frecuencia;
       if (form.classList.contains('enviado')) return;
@@ -473,7 +438,6 @@
     }));
 
     mostrar(1, 0);
-    pasos.forEach(p => p.classList.remove('entra-d', 'entra-i'));
   }
 
   alDesplazar();
