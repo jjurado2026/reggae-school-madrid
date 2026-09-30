@@ -1,0 +1,18 @@
+riddim.wav — muestras de instrumentos reales, todas con licencia CC0 1.0 (dominio público)
+
+Saxo tenor (Brett Tenor, Non-Vibrato) y piano vertical (Upright Piano, Yamaha)
+  VCSL — Versilian Community Sample Library · https://github.com/sgossner/VCSL
+
+Guitarra eléctrica (Black and Green Guitars, staccato)
+Bajo eléctrico (Black and Blue Basses, darkblack)
+Batería: bombo, sidestick y charles (Big Rusty Drums)
+  Karoryfer Samples · https://github.com/sfzinstruments
+
+Voz (vocal sustain, vocal «a»)
+  legato_vocal_tutorial · https://github.com/sfzinstruments/legato_vocal_tutorial
+
+Recortadas, pasadas a mono a 22 050 Hz y normalizadas. El órgano, la sirena
+y la bocina del DJ se sintetizan en el navegador (assets/js/riddim.js).
+
+En la web definitiva, este riddim se sustituiría por pistas grabadas por el
+profesorado de Reggae School Madrid.
