@@ -63,9 +63,9 @@
 .hero__ctas .boton { width: 100%; }
 @media (min-width: 520px) { .hero__ctas .boton { width: auto; } }
 
-/* El altavoz: foto en el cono, suspensión y pegatina del logo */
+/* El altavoz: foto en el cono, suspensión y pegatina del logo.
+   En móvil va debajo del CTA: primero el mensaje y la reserva */
 .hero__altavoz {
-  order: -1;
   display: grid;
   justify-items: center;
 }
