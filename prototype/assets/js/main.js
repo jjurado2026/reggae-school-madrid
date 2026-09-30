@@ -1,7 +1,7 @@
 /* =====================================================================
-   Reggae School Madrid — v3.1 "RIDDIM" · interacciones
-   Cabecera fija · menú · aviso de páginas futuras · revelados · eco ·
-   mesa de mezclas y riddim · compás · opiniones · vídeo · formulario.
+   Reggae School Madrid — v3.2 "RIDDIM" · interacciones
+   Cabecera fija · menú · revelados · eco · mesa de mezclas y riddim ·
+   compás · opiniones · vídeo · formulario.
    Solo transform y opacity. Respeta prefers-reduced-motion y ?ss.
    ===================================================================== */
 (() => {
@@ -82,20 +82,6 @@
     selloImg.style.transform = `rotate(${-12 + Math.min(y, 900) * .045}deg)`;
   }
 
-  /* ---------------- Aviso: páginas de la web completa ---------------- */
-  // El menú enlaza a las páginas de la web completa. En el prototipo aún no
-  // existen: en lugar de un 404, un aviso breve que dice qué pasará.
-  const aviso = $('[data-aviso]');
-  let avisoReloj = 0;
-  function avisar(texto) {
-    if (!aviso) return;
-    clearTimeout(avisoReloj);
-    aviso.textContent = texto;
-    aviso.classList.remove('visible');
-    requestAnimationFrame(() => requestAnimationFrame(() => aviso.classList.add('visible')));
-    avisoReloj = setTimeout(() => aviso.classList.remove('visible'), 3200);
-  }
-
   /* ---------------- Menú móvil ---------------- */
   const menu = $('[data-menu]');
   const menuBtn = $('[data-menu-abrir]');
@@ -107,8 +93,8 @@
     menuBtn.setAttribute('aria-expanded', 'true');
     menuTxt.textContent = 'Cerrar';
     requestAnimationFrame(() => requestAnimationFrame(() => menu.classList.add('abierto')));
-    const primero = $('a', menu);
-    if (primero) primero.focus({ preventScroll: true });
+    const cta = $('a', menu);
+    if (cta) cta.focus({ preventScroll: true });
   }
   function cerrarMenu(devolverFoco = true) {
     if (!menu || menu.hidden) return;
@@ -137,39 +123,40 @@
     window.matchMedia('(min-width: 1000px)').addEventListener('change', (m) => { if (m.matches) cerrarMenu(false); });
   }
 
-  $$('[data-proxima]').forEach(a => a.addEventListener('click', (e) => {
-    e.preventDefault();
-    cerrarMenu(false);
-    avisar(`«${a.dataset.proxima}» tendrá su propia página en la web completa.`);
-  }));
-
   /* ---------------- Mesa de mezclas: ocho canales, ocho cursos ---------------- */
   const mesa = $('[data-mesa]');
   const canales = $$('[data-canal]');
   const cursos = $$('[data-curso]');
   const estado = $('[data-mesa-estado]');
+  const navPantalla = $('[data-pantalla-nav]');
+  const pantalla = $('[data-pantalla]');
+  const orden = canales.map(c => c.dataset.canal);
   const nombres = {
     guitarra: 'Guitarra', bajo: 'Bajo', canto: 'Canto', saxo: 'Saxo', teclado: 'Teclado',
     bateria: 'Batería', produccion: 'Producción y mezcla', combo: 'Combo RSM'
   };
   const queSuena = {
-    guitarra: 'Suena la guitarra: el skank en el 2 y el 4',
-    bajo: 'Suena el bajo',
-    canto: 'Suena la voz',
-    saxo: 'Suena el saxo',
-    teclado: 'Suena el teclado: la burbuja de órgano',
-    bateria: 'Suena la batería: el one drop, bombo en el 3',
-    produccion: 'Suena la producción: mezcla dub con el DJ',
-    combo: 'Suena la banda entera'
+    guitarra: 'Suena la guitarra', bajo: 'Suena el bajo', canto: 'Suena la voz',
+    saxo: 'Suena el saxo', teclado: 'Suena el teclado', bateria: 'Suena la batería',
+    produccion: 'Suena la producción, con el DJ', combo: 'Suena la banda entera'
   };
+  const R = window.Riddim && window.Riddim.soportado ? window.Riddim : null;
   let canalActual = 'guitarra';
+  let esperandoSonido = false;
 
   function textoEstado() {
     if (!estado) return;
-    const n = canales.findIndex(c => c.dataset.canal === canalActual) + 1;
-    estado.textContent = window.Riddim && window.Riddim.sonando
-      ? queSuena[canalActual]
-      : `Canal ${String(n).padStart(2, '0')} · ${nombres[canalActual]}`;
+    if (esperandoSonido && R && !R.listo) estado.textContent = 'Cargando el sonido…';
+    else if (R && R.sonando) estado.textContent = queSuena[canalActual];
+    else estado.textContent = nombres[canalActual];
+  }
+
+  function navegacion() {
+    if (!navPantalla) return;
+    const i = orden.indexOf(canalActual), n = orden.length;
+    $('[data-mesa-prev]', navPantalla).textContent = nombres[orden[(i - 1 + n) % n]];
+    $('[data-mesa-next]', navPantalla).textContent = nombres[orden[(i + 1) % n]];
+    $('[data-mesa-cuenta]', navPantalla).textContent = `${String(i + 1).padStart(2, '0')} / ${String(n).padStart(2, '0')}`;
   }
 
   function seleccionar(nombre, { animar = true, enfocar = false } = {}) {
@@ -188,73 +175,99 @@
       if (activo && animar && !quieto()) { void a.offsetWidth; a.classList.add('entra'); }
     });
     if (enfocar) tab.focus();
-    // En cada canal suena solo su instrumento; Combo RSM, todos
-    if (window.Riddim) window.Riddim.canal(nombre);
+    navegacion();
     textoEstado();
   }
 
+  // Pulsar un canal lo hace sonar: su instrumento, solo
+  function escuchar(nombre) {
+    if (!R) return;
+    esperandoSonido = !R.listo;
+    textoEstado();
+    R.tocar(nombre).then(() => { esperandoSonido = false; textoEstado(); });
+  }
+
   if (mesa && canales.length) {
+    if (navPantalla) navPantalla.hidden = false;
     seleccionar('guitarra', { animar: false });
 
     canales.forEach((c, i) => {
-      c.addEventListener('click', (e) => { e.preventDefault(); seleccionar(c.dataset.canal); });
+      c.addEventListener('click', (e) => {
+        e.preventDefault();
+        seleccionar(c.dataset.canal);
+        escuchar(c.dataset.canal);
+      });
       c.addEventListener('keydown', (e) => {
         const mapa = { ArrowRight: i + 1, ArrowDown: i + 1, ArrowLeft: i - 1, ArrowUp: i - 1, Home: 0, End: canales.length - 1 };
         if (!(e.key in mapa)) return;
         e.preventDefault();
         const j = (mapa[e.key] + canales.length) % canales.length;
-        // Teclado: cambio inmediato, sin animación
-        seleccionar(canales[j].dataset.canal, { animar: false, enfocar: true });
+        // Teclado: cambio inmediato, sin animación; si ya suena, suena el nuevo canal
+        seleccionar(orden[j], { animar: false, enfocar: true });
+        if (R && R.sonando) escuchar(orden[j]);
       });
     });
 
-    // #curso-x en la URL abre ese canal
-    const hash = location.hash.replace('#curso-', '');
-    if (nombres[hash]) setTimeout(() => {
-      seleccionar(hash, { animar: false });
-      mesa.scrollIntoView({ block: 'start' });
-    }, 60);
+    $$('[data-mesa-ir]').forEach(b => b.addEventListener('click', () => {
+      const i = orden.indexOf(canalActual), n = orden.length;
+      const sig = orden[(i + Number(b.dataset.mesaIr) + n) % n];
+      seleccionar(sig);
+      escuchar(sig);
+      // En móvil, que la pantalla del curso siga a la vista
+      if (pantalla && pantalla.getBoundingClientRect().top < 0) pantalla.scrollIntoView({ block: 'start', behavior: quieto() ? 'auto' : 'smooth' });
+    }));
+
+    if ('IntersectionObserver' in window) {
+      // El sonido se descarga antes de llegar a la mesa
+      if (R) new IntersectionObserver((e, obs) => {
+        if (e.some(x => x.isIntersecting)) { R.precargar(); obs.disconnect(); }
+      }, { rootMargin: '700px 0px' }).observe(mesa);
+
+      // Prueba de sonido: una sola vez, al ver la mesa
+      if (!quieto()) new IntersectionObserver((e, obs) => {
+        if (!e.some(x => x.isIntersecting)) return;
+        mesa.classList.add('prueba');
+        setTimeout(() => mesa.classList.remove('prueba'), 1600);
+        obs.disconnect();
+      }, { threshold: .45 }).observe(mesa);
+
+      // Si la mesa sale de la pantalla, el riddim se para
+      if (R) new IntersectionObserver((e) => {
+        if (R.sonando && e.every(x => !x.isIntersecting)) R.parar();
+      }).observe(mesa);
+    }
   }
 
-  /* ---------------- El riddim: botón, vúmetros y altavoz ---------------- */
+  /* ---------------- El riddim: play, vúmetros y altavoz ---------------- */
   const togglers = $$('[data-riddim-toggle]');
-  const sonandoBox = $('[data-sonando]');
-  const sonandoT = $('[data-sonando-t]');
   const mesaLabel = $('[data-riddim-label]');
   const cono = $('[data-cono]');
   const anillos = $$('.altavoz__anillo');
-  const eqBarras = $$('.sonando__eq i');
   const vus = new Map(canales.map(c => [c.dataset.canal, $('[data-vu]', c)]));
 
-  if (!window.Riddim || !window.Riddim.soportado) {
+  if (!R) {
     togglers.forEach(b => { b.hidden = true; });
+    const guia = $('.mesa__guia span:last-child');
+    if (guia) guia.innerHTML = '<strong>Pulsa un instrumento</strong> para ver su curso.';
   } else {
-    togglers.forEach(b => b.addEventListener('click', () => window.Riddim.alternar()));
+    togglers.forEach(b => b.addEventListener('click', () => {
+      if (R.sonando) R.parar(); else escuchar(canalActual);
+    }));
+    R.alCargar(() => textoEstado());
 
-    window.Riddim.alCambiar((suena) => {
+    R.alCambiar((suena) => {
       togglers.forEach(b => b.setAttribute('aria-pressed', String(suena)));
-      if (mesaLabel) mesaLabel.textContent = suena ? 'Pausa' : 'Escuchar el canal';
+      if (mesaLabel) mesaLabel.textContent = suena ? 'Pausa' : 'Escuchar';
       if (mesa) mesa.classList.toggle('sonando-mesa', suena);
-      if (sonandoT) sonandoT.textContent = nombres[canalActual];
-      if (sonandoBox) {
-        if (suena) {
-          sonandoBox.hidden = false;
-          requestAnimationFrame(() => requestAnimationFrame(() => sonandoBox.classList.add('visible')));
-        } else {
-          sonandoBox.classList.remove('visible');
-          setTimeout(() => { if (!window.Riddim.sonando) sonandoBox.hidden = true; }, 300);
-        }
-      }
       if (!suena) {
         vus.forEach(v => { if (v) v.style.transform = ''; });
         if (cono) cono.style.transform = '';
         anillos.forEach(a => { a.style.transform = ''; });
-        eqBarras.forEach(b => { b.style.transform = ''; });
       }
       textoEstado();
     });
 
-    window.Riddim.alNivel((n) => {
+    R.alNivel((n) => {
       const todo = Math.max(n.bateria, n.bajo, n.guitarra, n.teclado, n.saxo, n.canto, n.dj);
       const porCanal = {
         guitarra: n.guitarra, bajo: n.bajo, canto: n.canto, saxo: n.saxo, teclado: n.teclado,
@@ -264,13 +277,10 @@
         if (!v) return;
         v.style.transform = `scaleY(${Math.min(1, .04 + porCanal[k] * .92).toFixed(3)})`;
       });
-      if (sonandoT) sonandoT.textContent = nombres[canalActual];
       if (!reducido.matches) {
         if (cono) cono.style.transform = `scale(${(1 + n.bombo * .028).toFixed(4)})`;
         anillos.forEach((a, i) => { a.style.transform = `scale(${(1 + n.bombo * .035 * (i + 1)).toFixed(4)})`; });
       }
-      const eq = [n.bateria, Math.max(n.bajo, n.canto), Math.max(n.guitarra, n.teclado, n.saxo, n.dj)];
-      eqBarras.forEach((b, i) => { b.style.transform = `scaleY(${(.2 + eq[i] * .8).toFixed(3)})`; });
     });
   }
 
@@ -337,7 +347,7 @@
 
   /* ---------------- Vídeo: fachada ligera hasta el clic ---------------- */
   $$('[data-video]').forEach(btn => btn.addEventListener('click', () => {
-    if (window.Riddim && window.Riddim.sonando) window.Riddim.parar();
+    if (R && R.sonando) R.parar();
     const f = document.createElement('iframe');
     f.src = `https://www.youtube-nocookie.com/embed/${btn.dataset.video}?autoplay=1&rel=0`;
     f.title = 'Presentación de Reggae School Madrid, con Javier Ochoa';
@@ -430,6 +440,7 @@
 
     // «Prueba una clase de…», «Quiero entrar en el Combo» y «Me interesa» rellenan el formulario
     $$('[data-reserva]').forEach(a => a.addEventListener('click', () => {
+      if (R && R.sonando) R.parar();
       const inst = a.dataset.instrumento, frec = a.dataset.frecuencia;
       if (form.classList.contains('enviado')) return;
       if (inst) { const r = $(`[name="instrumento"][value="${inst}"]`, form); if (r) { r.checked = true; error('instrumento', false); } }

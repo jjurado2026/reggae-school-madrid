@@ -15,13 +15,14 @@ la home se construye como una sesión de dub:
 - **Los ocho cursos son los ocho canales de una mesa de mezclas.** Vúmetro, fader, botón SOLO y
   cinta con el nombre. Elegir canal abre el curso con el texto del cliente íntegro. Es un
   `tablist` accesible y en móvil caben los ocho canales.
-- **La web suena.** Un one drop a 75 BPM sintetizado con Web Audio, sin archivos de audio, con
-  todos los instrumentos a la vez. Cada canal deja sonar solo el suyo; Producción es la mezcla dub
-  con el DJ (sirena y bocina) y Combo RSM, la banda entera. Solo arranca con un clic.
+- **La web suena, con instrumentos reales.** Un one drop a 75 BPM de cuatro compases tocado con
+  muestras CC0 (saxo, piano, guitarra, bajo, batería y voz; ver `assets/audio/CREDITOS.txt`).
+  Pulsar un canal lo hace sonar solo; Producción es la mezcla dub con el DJ y Combo RSM, la banda
+  entera. Solo arranca con un clic y se para al salir de la mesa.
 - **Todo va a tempo**: negra 800 ms, semicorchea 200 ms. Eco dub en los titulares, un compás de
   cuatro tiempos con el acento en el 3 y un altavoz que late con el bombo mientras suena.
-- **Negro y blanco** como colores principales (`#1d1e1e`, `#ffffff`) y el **rojo** de su cartel del
-  Combo (`#b8312b`) para resaltar. Fraunces, Instrument Sans y Martian Mono.
+- **Negro predominante** (`#1d1e1e`, su fondo), texto en blanco y el **rojo** de su cartel del
+  Combo (`#b8312b`) para resaltar, con una banda roja de cursos al pie del hero. Fraunces, Instrument Sans y Martian Mono.
 
 Solo se animan `transform` y `opacity`. Sin bucles decorativos. `prefers-reduced-motion`
 respetado.

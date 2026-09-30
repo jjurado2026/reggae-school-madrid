@@ -1,225 +1,173 @@
 /* =====================================================================
-   Riddim — un one drop sintetizado con Web Audio, sin archivos de audio.
-   75 BPM, dos compases en La menor / Sol. Todos los instrumentos tocan
-   a la vez y cada canal de la mesa deja sonar solo el suyo:
+   Riddim — un one drop a 75 BPM con instrumentos reales.
+   Cuatro compases (La menor · Sol · La menor · Sol). Suenan todos a la vez
+   y cada canal de la mesa deja sonar solo el suyo:
 
-     guitarra → skank        bajo → línea de bajo     batería → one drop
-     teclado  → burbuja      saxo → línea de metales  canto   → voz
-     producción → mezcla dub (batería + bajo con eco) y el DJ (sirena, bocina)
+     guitarra → skank en el 2 y el 4        bajo    → la línea de bajo
+     canto    → la voz canta la frase        saxo    → el saxo le contesta
+     teclado  → piano en el 2 y el 4 y burbuja de órgano
+     batería  → one drop: bombo y sidestick en el 3, charles a corcheas
+     producción → mezcla dub: batería y bajo con eco, y el DJ (sirena, bocina)
      combo    → la banda entera
 
+   Muestras CC0 (dominio público), ver assets/audio/CREDITOS.txt:
+   saxo tenor y piano de VCSL · guitarra, bajo y batería de Karoryfer Samples ·
+   voz de legato_vocal_tutorial. La sirena y la bocina del DJ y el órgano se
+   sintetizan, como en un sound system.
+
    Nunca suena solo: arranca únicamente con un clic del usuario.
-   API: window.Riddim = { soportado, sonando, alternar(), parar(),
-        canal(nombre), alCambiar(fn), alNivel(fn) }
+   API: window.Riddim = { soportado, sonando, listo, precargar(), tocar(canal),
+        alternar(), parar(), canal(nombre), alCambiar(fn), alNivel(fn), alCargar(fn) }
    ===================================================================== */
 (() => {
   const AC = window.AudioContext || window.webkitAudioContext;
   const BPM = 75;
   const SEMI = 60 / BPM / 4;            // semicorchea = 0,2 s
-  const PASOS = 32;                      // dos compases de 16
-  const ANTICIPO = 0.12;                 // s que se programan por delante
+  const PASOS = 64;                      // cuatro compases de 16
+  const ANTICIPO = 0.12;
   const CAPAS = ['bateria', 'bajo', 'guitarra', 'teclado', 'saxo', 'canto', 'dj'];
+  const URL_AUDIO = 'assets/audio/riddim.wav';
 
-  // Qué capas suenan en cada canal de la mesa
   const MEZCLA = {
-    guitarra: ['guitarra'],
-    bajo: ['bajo'],
-    canto: ['canto'],
-    saxo: ['saxo'],
-    teclado: ['teclado'],
-    bateria: ['bateria'],
+    guitarra: ['guitarra'], bajo: ['bajo'], canto: ['canto'], saxo: ['saxo'],
+    teclado: ['teclado'], bateria: ['bateria'],
     produccion: ['bateria', 'bajo', 'dj'],
     combo: CAPAS
   };
-  const ECO = { produccion: .6, combo: .28 };
+  const ECO = { produccion: .55, combo: .18 };
+  // Paso en el que entra cada instrumento: al pulsar su canal se oye al momento
+  const ENTRADA = { saxo: 8, guitarra: 4, teclado: 2 };
+  // Volumen de cada capa en la mezcla
+  const VOL = { bateria: .9, bajo: 1, guitarra: .5, teclado: .55, saxo: .6, canto: .75, dj: .5 };
+  // En solo, cada instrumento se iguala en volumen con el resto (la guitarra solo da dos golpes por compás)
+  const SOLO = { guitarra: 2.4, teclado: 1.4, saxo: 1.15, canto: 1.15 };
 
-  const f = m => 440 * Math.pow(2, (m - 69) / 12);
+  // Mapa del sprite: [inicio s, duración s, nota MIDI]
+  const MAPA = {"sax56":[0,0.75002,56],"sax58":[0.78,0.75002,58],"sax60":[1.56,0.75002,60],"sax62":[2.34,0.75002,62],"sax64":[3.12,0.75002,64],"sax66":[3.9,0.75002,66],"piano55":[4.68,0.8,55],"piano60":[5.50998,0.8,60],"piano67":[6.33995,0.8,67],"voz47":[7.16993,1.05002,47],"voz50":[8.24993,1.05002,50],"voz52":[9.32993,1.05002,52],"voz55":[10.40993,1.05002,55],"voz57":[11.48993,1.05002,57],"gtr59":[12.56993,0.4,59],"gtr60":[12.99991,0.4,60],"gtr62":[13.42989,0.4,62],"gtr64":[13.85986,0.4,64],"gtr67":[14.28984,0.4,67],"gtr69":[14.71982,0.4,69],"bajo31":[15.1498,1,31],"bajo33":[16.17977,1,33],"bajo35":[17.20975,1,35],"bajo36":[18.23973,1,36],"bajo38":[19.26971,1,38],"bajo40":[20.29968,1,40],"bombo":[21.32966,0.5,null],"aro":[21.85964,0.3,null],"charles":[22.18961,0.18,null],"charlesAb":[22.39959,0.5,null]};
+  // La cantante está unos 40 cents baja respecto a La 440: se corrige al tocar
+  const AFINA = { voz: .42 };
+  const MUESTRAS = {};
+  for (const id in MAPA) {
+    const fam = id.replace(/\d+$/, '');
+    if (MAPA[id][2] != null) (MUESTRAS[fam] = MUESTRAS[fam] || []).push(MAPA[id][2]);
+  }
 
   // --- Partitura (paso: [nota MIDI, duración en semicorcheas]) ---
-  const BAJO = {
-    0: [45, 4], 6: [45, 1], 7: [48, 1], 8: [52, 3], 12: [50, 2], 14: [48, 2],
-    16: [43, 4], 22: [43, 1], 23: [47, 1], 24: [50, 3], 28: [48, 2], 30: [47, 2]
+  const repetir = (a, b) => Object.assign({}, a, ...Object.entries(b).map(([k, v]) => ({ [+k + 32]: v })));
+  const BAJO_AB = {
+    0: [33, 4], 6: [33, 1], 7: [36, 1], 8: [40, 3], 12: [38, 2], 14: [36, 2],
+    16: [31, 4], 22: [31, 1], 23: [35, 1], 24: [38, 3], 28: [36, 2], 30: [35, 2]
   };
-  const SKANK = { a: [69, 72, 76], b: [67, 71, 74] };      // Lam · Sol, agudo
-  const BURBUJA = { a: [57, 60, 64], b: [55, 59, 62] };    // Lam · Sol, medio
-  // Voz y saxo se contestan: la voz en la primera mitad de cada compás, el saxo en la segunda
-  const VOZ = { 0: [64, 3], 4: [62, 2], 6: [60, 2], 16: [62, 3], 20: [59, 2], 22: [57, 2] };
-  const SAXO = { 8: [76, 2], 10: [74, 1], 11: [72, 1], 12: [69, 3], 24: [74, 2], 26: [71, 1], 27: [67, 1], 28: [69, 3] };
+  const BAJO = repetir(BAJO_AB, BAJO_AB);
+  const VOZ = {
+    0: [52, 3], 3: [55, 1], 4: [57, 2], 6: [55, 2],
+    16: [55, 3], 19: [52, 1], 20: [50, 2], 22: [47, 2],
+    32: [52, 2], 34: [55, 2], 36: [57, 3], 39: [55, 1],
+    48: [50, 3], 51: [52, 1], 52: [50, 2], 54: [47, 2]
+  };
+  const SAXO = {
+    8: [57, 2], 10: [60, 1], 11: [62, 1], 12: [64, 2], 14: [62, 2],
+    24: [55, 2], 26: [59, 1], 27: [60, 1], 28: [62, 2], 30: [59, 2],
+    40: [57, 2], 42: [60, 1], 43: [62, 1], 44: [64, 2], 46: [67, 2],
+    56: [64, 2], 58: [62, 1], 59: [60, 1], 60: [59, 2], 62: [55, 2]
+  };
+  const ACORDES = { a: { gtr: [60, 64, 69], piano: [57, 60, 64], organo: [57, 60, 64] },
+                    b: { gtr: [59, 62, 67], piano: [55, 59, 62], organo: [55, 59, 62] } };
 
-  let ctx = null, master, buses = {}, ecoEntrada, ruido;
+  let ctx = null, master, buses = {}, ecoEntrada, sprite = null, cargando = null;
   let reloj = null, siguiente = 0, paso = 0;
-  let sonando = false, canalActual = 'combo', raf = 0;
-  const env = {};
+  let sonando = false, canalActual = 'guitarra', raf = 0;
+  const env = { bombo: 0 };
   CAPAS.forEach(c => { env[c] = 0; });
-  env.bombo = 0;
   const cola = [];
-  const oyentesCambio = new Set(), oyentesNivel = new Set();
+  const oyentesCambio = new Set(), oyentesNivel = new Set(), oyentesCarga = new Set();
+  const f = m => 440 * Math.pow(2, (m - 69) / 12);
 
   function montar() {
     ctx = new AC();
     master = ctx.createGain();
     master.gain.value = 0;
-    const cuerpo = ctx.createBiquadFilter();
-    cuerpo.type = 'lowshelf'; cuerpo.frequency.value = 110; cuerpo.gain.value = 4;
     const comp = ctx.createDynamicsCompressor();
-    comp.threshold.value = -16; comp.ratio.value = 3; comp.attack.value = .005; comp.release.value = .2;
-    master.connect(cuerpo).connect(comp).connect(ctx.destination);
-
+    comp.threshold.value = -14; comp.ratio.value = 3; comp.attack.value = .004; comp.release.value = .18;
+    master.connect(comp).connect(ctx.destination);
     CAPAS.forEach(c => {
       const g = ctx.createGain();
       g.gain.value = 0;
       g.connect(master);
       buses[c] = g;
     });
-
     // Eco dub: corchea con puntillo, realimentado y oscureciéndose
     ecoEntrada = ctx.createGain();
     ecoEntrada.gain.value = 0;
     const retardo = ctx.createDelay(2);
     retardo.delayTime.value = SEMI * 3;
-    const realim = ctx.createGain();
-    realim.gain.value = .5;
-    const paso1 = ctx.createBiquadFilter(); paso1.type = 'lowpass'; paso1.frequency.value = 2400;
-    const paso2 = ctx.createBiquadFilter(); paso2.type = 'highpass'; paso2.frequency.value = 280;
-    ecoEntrada.connect(retardo);
-    retardo.connect(paso1).connect(paso2);
-    paso2.connect(realim).connect(retardo);
-    paso2.connect(master);
-
-    // Ruido blanco para platos y aro
-    ruido = ctx.createBuffer(1, ctx.sampleRate, ctx.sampleRate);
-    const d = ruido.getChannelData(0);
-    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
-
-    aplicarCanal(false);
+    const realim = ctx.createGain(); realim.gain.value = .45;
+    const lp = ctx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 2600;
+    const hp = ctx.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 300;
+    ecoEntrada.connect(retardo); retardo.connect(lp).connect(hp);
+    hp.connect(realim).connect(retardo); hp.connect(master);
   }
 
-  // --- Instrumentos ---
-  // Al eco solo van el aro y el DJ: el eco únicamente se abre en Producción
-  // (batería + bajo + DJ) y en Combo, así no se cuela ningún instrumento silenciado.
-  function envolvente(g, t, pico, ataque, caida) {
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(pico, t + ataque);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + ataque + caida);
+  // Descarga y decodifica el sprite (se puede llamar antes del primer clic)
+  function precargar() {
+    if (!AC) return Promise.resolve(false);
+    if (cargando) return cargando;
+    if (!ctx) montar();
+    // XHR en lugar de fetch: también funciona al abrir la página en local
+    cargando = new Promise((ok, ko) => {
+      const x = new XMLHttpRequest();
+      x.open('GET', URL_AUDIO);
+      x.responseType = 'arraybuffer';
+      x.onload = () => (x.status === 200 || x.status === 0) && x.response ? ok(x.response) : ko(new Error(x.status));
+      x.onerror = () => ko(new Error('red'));
+      x.send();
+    })
+      .then(b => new Promise((ok, ko) => ctx.decodeAudioData(b, ok, ko)))
+      .then(buf => { sprite = buf; oyentesCarga.forEach(fn => fn(true)); return true; })
+      .catch(() => { cargando = null; oyentesCarga.forEach(fn => fn(false)); return false; });
+    return cargando;
   }
 
-  function bombo(t) {
-    const o = ctx.createOscillator(), g = ctx.createGain();
-    o.type = 'sine';
-    o.frequency.setValueAtTime(130, t);
-    o.frequency.exponentialRampToValueAtTime(42, t + .14);
-    envolvente(g, t, 1, .004, .42);
-    o.connect(g).connect(buses.bateria);
-    o.start(t); o.stop(t + .5);
-    marcar(t, 'bombo', 1); marcar(t, 'bateria', 1);
+  // --- Muestras: elige la más cercana y la transpone lo que falte ---
+  function muestra(t, fam, nota, { dur, vol = 1, capa, eco = 0, ataque = .004, suelta = .06 } = {}) {
+    let id = fam, semis = 0;
+    if (nota != null) {
+      const cerca = MUESTRAS[fam].reduce((a, b) => Math.abs(b - nota) < Math.abs(a - nota) ? b : a);
+      id = fam + cerca;
+      semis = nota - cerca + (AFINA[fam] || 0);
+    }
+    const [ini, largo] = MAPA[id];
+    const vel = Math.pow(2, semis / 12);
+    const s = ctx.createBufferSource(), g = ctx.createGain();
+    s.buffer = sprite;
+    s.playbackRate.value = vel;
+    const real = Math.min(dur || largo / vel, largo / vel);
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(vol, t + ataque);
+    g.gain.setValueAtTime(vol, t + Math.max(ataque, real - suelta));
+    g.gain.linearRampToValueAtTime(0, t + real);
+    s.connect(g).connect(buses[capa]);
+    if (eco) { const e = ctx.createGain(); e.gain.value = eco; g.connect(e).connect(ecoEntrada); }
+    s.start(t, ini, Math.min(largo, real * vel + .01));
+    s.stop(t + real + .02);
   }
 
-  function aro(t, vol = .55) {
-    const n = ctx.createBufferSource(), bp = ctx.createBiquadFilter(), g = ctx.createGain();
-    n.buffer = ruido;
-    bp.type = 'bandpass'; bp.frequency.value = 1900; bp.Q.value = 2.2;
-    envolvente(g, t, vol, .002, .07);
-    n.connect(bp).connect(g).connect(buses.bateria);
-    g.connect(ecoEntrada);
-    const o = ctx.createOscillator(), g2 = ctx.createGain();
-    o.type = 'triangle'; o.frequency.value = 820;
-    envolvente(g2, t, vol * .5, .002, .04);
-    o.connect(g2).connect(buses.bateria);
-    n.start(t); n.stop(t + .12); o.start(t); o.stop(t + .08);
+  // Órgano (síntesis aditiva tipo Hammond): la burbuja del teclado
+  function organo(t, notas, dur = .13) {
+    const g = ctx.createGain();
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(.05, t + .008);
+    g.gain.setValueAtTime(.05, t + dur - .03);
+    g.gain.linearRampToValueAtTime(0, t + dur);
+    g.connect(buses.teclado);
+    notas.forEach(n => [[1, 1], [2, .6], [3, .35], [4, .2]].forEach(([h, a]) => {
+      const o = ctx.createOscillator(), ga = ctx.createGain();
+      o.type = 'sine'; o.frequency.value = f(n) * h; ga.gain.value = a;
+      o.connect(ga).connect(g); o.start(t); o.stop(t + dur + .02);
+    }));
   }
 
-  function charles(t, vol, abierto = false) {
-    const n = ctx.createBufferSource(), hp = ctx.createBiquadFilter(), g = ctx.createGain();
-    n.buffer = ruido;
-    hp.type = 'highpass'; hp.frequency.value = 7200;
-    envolvente(g, t, vol, .002, abierto ? .22 : .045);
-    n.connect(hp).connect(g).connect(buses.bateria);
-    n.start(t); n.stop(t + .3);
-    marcar(t, 'bateria', Math.min(.55, vol * 3.2));
-  }
-
-  function bajo(t, nota, dur) {
-    const o = ctx.createOscillator(), o2 = ctx.createOscillator();
-    const lp = ctx.createBiquadFilter(), g = ctx.createGain(), g2 = ctx.createGain();
-    o.type = 'sine'; o.frequency.value = f(nota);
-    o2.type = 'triangle'; o2.frequency.value = f(nota + 12);
-    g2.gain.value = .18;
-    lp.type = 'lowpass'; lp.frequency.value = 520; lp.Q.value = .7;
-    const fin = t + dur * SEMI * .92;
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(.95, t + .012);
-    g.gain.setValueAtTime(.85, fin - .04);
-    g.gain.exponentialRampToValueAtTime(0.0001, fin + .06);
-    o.connect(lp); o2.connect(g2).connect(lp);
-    lp.connect(g).connect(buses.bajo);
-    o.start(t); o2.start(t); o.stop(fin + .1); o2.stop(fin + .1);
-    marcar(t, 'bajo', 1);
-  }
-
-  function acorde(t, notas, tipo, capa, corte, vol, caida) {
-    const bp = ctx.createBiquadFilter(), g = ctx.createGain();
-    bp.type = tipo === 'sawtooth' ? 'bandpass' : 'lowpass';
-    bp.frequency.value = corte; bp.Q.value = tipo === 'sawtooth' ? .9 : .5;
-    envolvente(g, t, vol, .004, caida);
-    notas.forEach(n => {
-      const o = ctx.createOscillator();
-      o.type = tipo; o.frequency.value = f(n);
-      o.detune.value = (Math.random() - .5) * 8;
-      o.connect(bp);
-      o.start(t); o.stop(t + caida + .05);
-    });
-    bp.connect(g).connect(buses[capa]);
-  }
-
-  // Saxo: sierra filtrada que se abre al atacar, con vibrato
-  function saxo(t, nota, dur) {
-    const fin = t + dur * SEMI * .9;
-    const o = ctx.createOscillator(), o2 = ctx.createOscillator();
-    const vib = ctx.createOscillator(), vibG = ctx.createGain();
-    const lp = ctx.createBiquadFilter(), g = ctx.createGain(), g2 = ctx.createGain();
-    o.type = 'sawtooth'; o2.type = 'square';
-    o.frequency.value = f(nota); o2.frequency.value = f(nota);
-    g2.gain.value = .35;
-    vib.frequency.value = 5.2; vibG.gain.value = f(nota) * .006;
-    vib.connect(vibG); vibG.connect(o.frequency); vibG.connect(o2.frequency);
-    lp.type = 'lowpass'; lp.Q.value = 3;
-    lp.frequency.setValueAtTime(700, t);
-    lp.frequency.linearRampToValueAtTime(2600, t + .06);
-    lp.frequency.linearRampToValueAtTime(1700, fin);
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(.16, t + .03);
-    g.gain.setValueAtTime(.14, fin - .03);
-    g.gain.exponentialRampToValueAtTime(0.0001, fin + .08);
-    o.connect(lp); o2.connect(g2).connect(lp);
-    lp.connect(g).connect(buses.saxo);
-    [o, o2, vib].forEach(x => { x.start(t); x.stop(fin + .12); });
-    marcar(t, 'saxo', 1);
-  }
-
-  // Voz: fuente de pulso filtrada por los formantes de una «o», con vibrato
-  function voz(t, nota, dur) {
-    const fin = t + dur * SEMI * .95;
-    const o = ctx.createOscillator(), vib = ctx.createOscillator(), vibG = ctx.createGain();
-    const g = ctx.createGain(), suma = ctx.createGain();
-    o.type = 'sawtooth'; o.frequency.value = f(nota);
-    vib.frequency.value = 5.6; vibG.gain.value = f(nota) * .012;
-    vib.connect(vibG).connect(o.frequency);
-    // Formantes aproximados de «o»: 450, 800, 2830 Hz
-    [[450, 8, 1], [800, 10, .6], [2830, 14, .18]].forEach(([fr, q, a]) => {
-      const bp = ctx.createBiquadFilter(), ga = ctx.createGain();
-      bp.type = 'bandpass'; bp.frequency.value = fr; bp.Q.value = q; ga.gain.value = a;
-      o.connect(bp).connect(ga).connect(suma);
-    });
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(.9, t + .06);
-    g.gain.setValueAtTime(.8, fin - .05);
-    g.gain.exponentialRampToValueAtTime(0.0001, fin + .12);
-    suma.connect(g).connect(buses.canto);
-    o.start(t); vib.start(t); o.stop(fin + .15); vib.stop(fin + .15);
-    marcar(t, 'canto', 1);
-  }
-
-  // DJ: la sirena dub (dos tonos que suben y bajan) y la bocina del sound system
+  // DJ: la sirena dub y la bocina del sound system
   function sirena(t) {
     const dur = SEMI * 8;
     const o = ctx.createOscillator(), lfo = ctx.createOscillator(), lfoG = ctx.createGain();
@@ -230,20 +178,17 @@
     lfo.type = 'triangle'; lfo.frequency.value = 5.5; lfoG.gain.value = 170;
     lfo.connect(lfoG).connect(o.frequency);
     lp.type = 'lowpass'; lp.frequency.value = 2200;
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(.09, t + .05);
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(.09, t + .05);
     g.gain.setValueAtTime(.09, t + dur - .15);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
-    o.connect(lp).connect(g);
-    g.connect(buses.dj);
-    const envio = ctx.createGain(); envio.gain.value = .9;
-    g.connect(envio).connect(ecoEntrada);
+    g.gain.linearRampToValueAtTime(0, t + dur);
+    o.connect(lp).connect(g); g.connect(buses.dj);
+    const e = ctx.createGain(); e.gain.value = .8; g.connect(e).connect(ecoEntrada);
     o.start(t); lfo.start(t); o.stop(t + dur + .05); lfo.stop(t + dur + .05);
     marcar(t, 'dj', 1);
   }
   function bocina(t) {
-    const dur = .34;
-    const g = ctx.createGain(), bp = ctx.createBiquadFilter();
+    const dur = .34, g = ctx.createGain(), bp = ctx.createBiquadFilter();
     bp.type = 'bandpass'; bp.frequency.value = 1300; bp.Q.value = .8;
     [69, 73, 76].forEach((n, i) => {
       const o = ctx.createOscillator();
@@ -251,53 +196,70 @@
       o.frequency.setValueAtTime(f(n + 12), t);
       o.frequency.exponentialRampToValueAtTime(f(n + 12) * .82, t + dur);
       o.detune.value = (i - 1) * 9;
-      o.connect(bp);
-      o.start(t); o.stop(t + dur + .05);
+      o.connect(bp); o.start(t); o.stop(t + dur + .05);
     });
-    g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(.12, t + .02);
-    g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    g.gain.setValueAtTime(0, t);
+    g.gain.linearRampToValueAtTime(.11, t + .02);
+    g.gain.linearRampToValueAtTime(0, t + dur);
     bp.connect(g).connect(buses.dj);
-    const envio = ctx.createGain(); envio.gain.value = .7;
-    g.connect(envio).connect(ecoEntrada);
+    const e = ctx.createGain(); e.gain.value = .6; g.connect(e).connect(ecoEntrada);
     marcar(t, 'dj', .9);
   }
 
   // --- Secuenciador ---
-  let vuelta = 0;
   function programar(p, t) {
     const enCompas = p % 16;
-    const acordeClave = p < 16 ? 'a' : 'b';
-    const swing = enCompas % 4 === 2 ? SEMI * .18 : 0;
+    const acorde = ACORDES[Math.floor(p / 16) % 2 === 0 ? 'a' : 'b'];
+    const swing = enCompas % 4 === 2 ? .035 : 0;
 
-    // Batería: one drop — bombo y aro juntos en el tiempo 3
-    if (enCompas === 8) { bombo(t); aro(t); }
-    if (p === 30) aro(t, .22);
-    if (enCompas % 2 === 0) charles(t + swing, enCompas % 4 === 2 ? .16 : .09, p === 30);
+    // Batería: one drop — bombo y sidestick juntos en el tiempo 3
+    if (enCompas === 8) {
+      muestra(t, 'bombo', null, { capa: 'bateria', vol: 1 });
+      muestra(t, 'aro', null, { capa: 'bateria', vol: .8, eco: .7 });
+      marcar(t, 'bombo', 1); marcar(t, 'bateria', 1);
+    }
+    if (p === 60) muestra(t, 'aro', null, { capa: 'bateria', vol: .35, eco: .5 });
+    if (enCompas % 2 === 0) {
+      if (p === 62) muestra(t + swing, 'charlesAb', null, { capa: 'bateria', vol: .45 });
+      else muestra(t + swing, 'charles', null, { capa: 'bateria', vol: enCompas % 4 === 2 ? .5 : .32 });
+      marcar(t + swing, 'bateria', .45);
+    }
 
     // Bajo
-    if (BAJO[p]) bajo(t, BAJO[p][0], BAJO[p][1]);
+    if (BAJO[p]) {
+      muestra(t, 'bajo', BAJO[p][0], { capa: 'bajo', vol: 1, dur: BAJO[p][1] * SEMI * .95, suelta: .05 });
+      marcar(t, 'bajo', 1);
+    }
 
-    // Guitarra: skank en el 2 y el 4
+    // Guitarra: skank en el 2 y el 4, rasgueo hacia abajo
     if (enCompas === 4 || enCompas === 12) {
-      acorde(t, SKANK[acordeClave], 'sawtooth', 'guitarra', 1700, .16, .09);
+      acorde.gtr.slice().reverse().forEach((n, i) => muestra(t + i * .007, 'gtr', n, { capa: 'guitarra', vol: .75, dur: .16, suelta: .05 }));
       marcar(t, 'guitarra', 1);
     }
 
-    // Teclado: burbuja de órgano a contratiempo
+    // Teclado: piano con la guitarra y burbuja de órgano a contratiempo
+    if (enCompas === 4 || enCompas === 12) {
+      acorde.piano.forEach(n => muestra(t, 'piano', n, { capa: 'teclado', vol: .6, dur: .22, suelta: .08 }));
+      marcar(t, 'teclado', 1);
+    }
     if (enCompas % 4 === 2) {
-      acorde(t + swing, BURBUJA[acordeClave], 'square', 'teclado', 1300, .07, .12);
-      marcar(t + swing, 'teclado', .8);
+      organo(t + swing, acorde.organo);
+      marcar(t + swing, 'teclado', .6);
     }
 
-    // Voz y saxo, pregunta y respuesta
-    if (VOZ[p]) voz(t, VOZ[p][0], VOZ[p][1]);
-    if (SAXO[p]) saxo(t, SAXO[p][0], SAXO[p][1]);
+    // Voz y saxo: pregunta y respuesta
+    if (VOZ[p]) {
+      muestra(t, 'voz', VOZ[p][0], { capa: 'canto', vol: .9, dur: VOZ[p][1] * SEMI + .06, ataque: .03, suelta: .09 });
+      marcar(t, 'canto', 1);
+    }
+    if (SAXO[p]) {
+      muestra(t, 'sax', SAXO[p][0], { capa: 'saxo', vol: .85, dur: SAXO[p][1] * SEMI * .92, ataque: .012, suelta: .05 });
+      marcar(t, 'saxo', 1);
+    }
 
-    // DJ: sirena al entrar la vuelta par, bocina doble al final de la impar
-    if (p === 0 && vuelta % 2 === 0) sirena(t);
-    if (vuelta % 2 === 1 && (p === 24 || p === 26)) bocina(t);
-    if (p === PASOS - 1) vuelta++;
+    // DJ: sirena al entrar el tercer compás y bocina doble al final
+    if (p === 32) sirena(t);
+    if (p === 58 || p === 60) bocina(t);
   }
 
   function marcar(t, capa, v) { cola.push({ t, capa, v }); }
@@ -310,7 +272,7 @@
     }
   }
 
-  // Niveles para la interfaz: picos que caen, escalados por la ganancia del bus
+  // Niveles para la interfaz: picos que caen, escalados por el volumen del bus
   let ultimo = 0;
   function pintar(ahora) {
     const dt = Math.min(.1, (ahora - (ultimo || ahora)) / 1000);
@@ -321,41 +283,48 @@
       const e = cola.shift();
       env[e.capa] = Math.max(env[e.capa], e.v);
     }
-    const caida = Math.pow(.02, dt);       // ~ -34 dB por segundo
+    const caida = Math.pow(.02, dt);
     for (const k in env) env[k] *= caida;
-    const niveles = { bombo: env.bombo * buses.bateria.gain.value };
-    CAPAS.forEach(c => { niveles[c] = env[c] * buses[c].gain.value; });
+    const niveles = { bombo: env.bombo * (buses.bateria.gain.value > .01 ? 1 : 0) };
+    CAPAS.forEach(c => { niveles[c] = env[c] * Math.min(1, buses[c].gain.value / VOL[c]); });
     oyentesNivel.forEach(fn => fn(niveles));
     raf = requestAnimationFrame(pintar);
   }
 
-  // --- Mezcla según el canal elegido en la mesa ---
   function aplicarCanal(suave = true) {
     if (!ctx) return;
     const activas = MEZCLA[canalActual] || CAPAS;
-    const t = ctx.currentTime, k = suave ? .06 : 0.001;
-    CAPAS.forEach(c => buses[c].gain.setTargetAtTime(activas.includes(c) ? 1 : 0, t, k));
+    const t = ctx.currentTime, k = suave ? .04 : 0.001;
+    const extra = SOLO[canalActual] || 1;
+    CAPAS.forEach(c => buses[c].gain.setTargetAtTime(activas.includes(c) ? VOL[c] * extra : 0, t, k));
     ecoEntrada.gain.setTargetAtTime(ECO[canalActual] || 0, t, k);
   }
 
   function emitir() { oyentesCambio.forEach(fn => fn(sonando)); }
 
-  async function empezar() {
+  // Arranca (o reinicia) en el compás donde entra el instrumento del canal
+  async function tocar(nombre) {
     if (!AC) return;
+    if (nombre) canalActual = nombre;
     if (!ctx) montar();
     if (ctx.state === 'suspended') await ctx.resume();
-    sonando = true;
-    paso = 0; vuelta = 0;
-    siguiente = ctx.currentTime + .06;
+    const ok = await precargar();
+    if (!ok) return;
+    clearInterval(reloj);
     cola.length = 0;
-    aplicarCanal(false);
+    aplicarCanal(!sonando ? false : true);
+    paso = ENTRADA[canalActual] || 0;
+    siguiente = ctx.currentTime + .05;
     master.gain.cancelScheduledValues(ctx.currentTime);
-    master.gain.setTargetAtTime(.72, ctx.currentTime, .08);
+    master.gain.setTargetAtTime(.64, ctx.currentTime, .03);
     motor();
     reloj = setInterval(motor, 25);
-    ultimo = 0;
-    raf = requestAnimationFrame(pintar);
-    emitir();
+    if (!sonando) {
+      sonando = true;
+      ultimo = 0;
+      raf = requestAnimationFrame(pintar);
+      emitir();
+    }
   }
 
   function parar() {
@@ -364,7 +333,7 @@
     clearInterval(reloj);
     cancelAnimationFrame(raf);
     master.gain.cancelScheduledValues(ctx.currentTime);
-    master.gain.setTargetAtTime(0, ctx.currentTime, .05);
+    master.gain.setTargetAtTime(0, ctx.currentTime, .04);
     for (const k in env) env[k] = 0;
     cola.length = 0;
     setTimeout(() => { if (!sonando && ctx) ctx.suspend(); }, 400);
@@ -376,10 +345,14 @@
   window.Riddim = {
     soportado: !!AC,
     get sonando() { return sonando; },
-    alternar() { return sonando ? parar() : empezar(); },
+    get listo() { return !!sprite; },
+    precargar,
+    tocar,
+    alternar() { return sonando ? parar() : tocar(); },
     parar,
     canal(nombre) { canalActual = nombre; aplicarCanal(true); },
     alCambiar(fn) { oyentesCambio.add(fn); },
-    alNivel(fn) { oyentesNivel.add(fn); }
+    alNivel(fn) { oyentesNivel.add(fn); },
+    alCargar(fn) { oyentesCarga.add(fn); }
   };
 })();

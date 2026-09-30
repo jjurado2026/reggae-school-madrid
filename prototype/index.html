@@ -6,7 +6,7 @@
 <title>Reggae School Madrid — Clases de reggae online y presenciales en Madrid</title>
 <meta name="description" content="Aprende guitarra, bajo, canto, saxo, teclado, batería, producción o toca en una banda con músicos de la escena reggae. Online o presencial en Madrid. Sin matrícula.">
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#1d1e1e">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Reggae School Madrid — Educación musical desde el reggae">
 <meta property="og:description" content="Ocho cursos, online o presenciales en Madrid, con músicos de la escena reggae. Sin matrícula.">
@@ -15,8 +15,8 @@
 <link rel="preload" href="assets/fonts/fraunces.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/fonts/instrument-sans.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/img/esc-banda-900.webp" as="image" fetchpriority="high">
-<link rel="stylesheet" href="assets/css/global.css?v=3.1">
-<link rel="stylesheet" href="assets/css/home.css?v=3.1">
+<link rel="stylesheet" href="assets/css/global.css?v=3.2">
+<link rel="stylesheet" href="assets/css/home.css?v=3.2">
 <script>
   // Antes de pintar: marca JS disponible y el modo captura (?ss) para no parpadear
   document.documentElement.classList.add('js');
@@ -56,21 +56,22 @@
 <!-- ============================ CABECERA (fija) ============================ -->
 <header class="cab" data-cab>
   <div class="cab__int envoltura">
-    <a class="marca" href="./" aria-label="Reggae School Madrid, inicio">
+    <a class="marca" href="#" aria-label="Reggae School Madrid, volver arriba">
       <img class="marca__logo" src="assets/img/logo-120.webp" width="52" height="52" alt="Reggae School Madrid" decoding="async">
     </a>
 
+    <!-- Propuesta: el menú se enseña, pero sus páginas aún no existen; solo el CTA navega -->
     <nav class="nav" aria-label="Principal">
       <ul class="nav__lista">
-        <li><a href="cursos/" data-proxima="Cursos">Cursos</a></li>
-        <li><a href="profesorado/" data-proxima="Profesorado">Profesorado</a></li>
-        <li><a href="combo-rsm/" data-proxima="Combo RSM">Combo RSM</a></li>
-        <li><a href="tarifas/" data-proxima="Tarifas">Tarifas</a></li>
-        <li><a href="preguntas-frecuentes/" data-proxima="Preguntas">Preguntas</a></li>
+        <li><span>Cursos</span></li>
+        <li><span>Profesorado</span></li>
+        <li><span>Combo RSM</span></li>
+        <li><span>Tarifas</span></li>
+        <li><span>Preguntas</span></li>
       </ul>
     </nav>
 
-    <a class="boton boton--tinta cab__cta" href="#reserva" data-reserva>Sesión de prueba</a>
+    <a class="boton boton--rojo cab__cta" href="#reserva" data-reserva>Sesión de prueba</a>
 
     <button class="menu-btn" type="button" data-menu-abrir aria-expanded="false" aria-controls="menu">
       <span class="menu-btn__txt">Menú</span>
@@ -83,19 +84,19 @@
 <div class="menu" id="menu" data-menu hidden>
   <div class="menu__int envoltura">
     <ul class="menu__lista">
-      <li style="--i:0"><a href="cursos/" data-proxima="Cursos">Cursos</a></li>
-      <li style="--i:1"><a href="profesorado/" data-proxima="Profesorado">Profesorado</a></li>
-      <li style="--i:2"><a href="combo-rsm/" data-proxima="Combo RSM">Combo RSM</a></li>
-      <li style="--i:3"><a href="tarifas/" data-proxima="Tarifas">Tarifas</a></li>
-      <li style="--i:4"><a href="preguntas-frecuentes/" data-proxima="Preguntas">Preguntas</a></li>
+      <li style="--i:0"><span>Cursos</span></li>
+      <li style="--i:1"><span>Profesorado</span></li>
+      <li style="--i:2"><span>Combo RSM</span></li>
+      <li style="--i:3"><span>Tarifas</span></li>
+      <li style="--i:4"><span>Preguntas</span></li>
     </ul>
     <div class="menu__pie" style="--i:5">
-      <a class="boton boton--blanco boton--ancho" href="#reserva" data-menu-enlace data-reserva>Reserva tu sesión de prueba</a>
-      <p class="menu__mail"><a href="mailto:reggaeschoolmadrid@gmail.com">reggaeschoolmadrid@gmail.com</a></p>
+      <a class="boton boton--rojo boton--ancho" href="#reserva" data-menu-enlace data-reserva>Reserva tu sesión de prueba</a>
+      <p class="menu__mail">reggaeschoolmadrid@gmail.com</p>
       <ul class="iconos" aria-label="Redes sociales">
-        <li><a href="https://www.instagram.com/reggaeschoolmadrid/" aria-label="Instagram"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a></li>
-        <li><a href="https://www.youtube.com/channel/UCNSFSKC_9hNB4wqtihIZoTg" aria-label="YouTube"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M22 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C18.3 5 12 5 12 5s-6.3 0-7.8.5a2.5 2.5 0 0 0-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.7c.2.9.9 1.6 1.8 1.8C5.7 19 12 19 12 19s6.3 0 7.8-.5a2.5 2.5 0 0 0 1.8-1.8C22 15.2 22 12 22 12zM10 15V9l5.2 3L10 15z"/></svg></a></li>
-        <li><a href="https://www.facebook.com/reggaeschoolmadrid" aria-label="Facebook"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h3l1-3h-4v-2c0-.6.4-1 1-1z"/></svg></a></li>
+        <li><span aria-label="Instagram" role="img"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></span></li>
+        <li><span aria-label="YouTube" role="img"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M22 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C18.3 5 12 5 12 5s-6.3 0-7.8.5a2.5 2.5 0 0 0-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.7c.2.9.9 1.6 1.8 1.8C5.7 19 12 19 12 19s6.3 0 7.8-.5a2.5 2.5 0 0 0 1.8-1.8C22 15.2 22 12 22 12zM10 15V9l5.2 3L10 15z"/></svg></span></li>
+        <li><span aria-label="Facebook" role="img"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h3l1-3h-4v-2c0-.6.4-1 1-1z"/></svg></span></li>
       </ul>
     </div>
   </div>
@@ -121,7 +122,7 @@
       </p>
 
       <div class="hero__ctas" data-entra style="--i:4">
-        <a class="boton boton--tinta boton--grande" href="#reserva" data-reserva>
+        <a class="boton boton--rojo boton--grande" href="#reserva" data-reserva>
           Reserva tu sesión de prueba
           <svg class="boton__flecha" viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M4 10h11M11 5l5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
@@ -146,20 +147,24 @@
     </div>
 
   </div>
+
+  <!-- Banda con los ocho cursos: cierra la primera pantalla -->
+  <div class="banda" aria-label="Los ocho cursos de la escuela">
+    <div class="banda__pista">
+      <ul class="banda__lista">
+        <li>Guitarra</li><li>Bajo</li><li>Canto</li><li>Saxo</li><li>Teclado</li><li>Batería</li><li>Producción y mezcla</li><li>Combo RSM</li>
+      </ul>
+      <ul class="banda__lista" aria-hidden="true">
+        <li>Guitarra</li><li>Bajo</li><li>Canto</li><li>Saxo</li><li>Teclado</li><li>Batería</li><li>Producción y mezcla</li><li>Combo RSM</li>
+      </ul>
+    </div>
+  </div>
 </section>
 
 <!-- ============================ LA ESCUELA ============================ -->
 <section class="escuela seccion" aria-labelledby="escuela-t">
+  <!-- Invertido respecto al hero: vídeo a la izquierda, texto a la derecha -->
   <div class="envoltura escuela__int">
-    <div class="escuela__texto" data-revela>
-      <h2 class="visually-hidden" id="escuela-t">La escuela</h2>
-      <p class="escuela__frase">
-        Reggae School Madrid nace para ofrecerte <em>una enseñanza musical y artística completa
-        desde el Reggae</em>, con profesores experimentados en el género y donde tú eres el
-        protagonista de tu propio aprendizaje.
-      </p>
-    </div>
-
     <div class="video" data-revela>
       <button class="video__btn" type="button" data-video="PeHxVKkdIkA" aria-label="Reproducir el vídeo de presentación de Javier Ochoa, director de la escuela">
         <img src="assets/img/esc-javier-900.webp"
@@ -168,6 +173,15 @@
              alt="" loading="lazy" decoding="async">
         <span class="video__play" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path d="M8 5v14l11-7z" fill="currentColor"/></svg></span>
       </button>
+    </div>
+
+    <div class="escuela__texto" data-revela>
+      <h2 class="visually-hidden" id="escuela-t">La escuela</h2>
+      <p class="escuela__frase">
+        Reggae School Madrid nace para ofrecerte <em>una enseñanza musical y artística completa
+        desde el Reggae</em>, con profesores experimentados en el género y donde tú eres el
+        protagonista de tu propio aprendizaje.
+      </p>
     </div>
   </div>
 </section>
@@ -185,71 +199,78 @@
     </header>
 
     <div class="mesa" data-mesa data-revela>
-      <div class="mesa__barra">
-        <span class="mesa__marca mono"><span class="led" aria-hidden="true"></span> RSM · 8 canales</span>
-        <p class="mesa__estado mono" data-mesa-estado aria-live="polite">Canal 01 · Guitarra</p>
-        <button class="mesa__play" type="button" data-riddim-toggle aria-pressed="false">
-          <svg class="ico-play" viewBox="0 0 20 20" width="13" height="13" aria-hidden="true"><path d="M6 4l10 6-10 6z" fill="currentColor"/></svg>
-          <svg class="ico-pausa" viewBox="0 0 20 20" width="13" height="13" aria-hidden="true"><path d="M5 4h3.5v12H5zM11.5 4H15v12h-3.5z" fill="currentColor"/></svg>
-          <span data-riddim-label>Escuchar el canal</span>
-        </button>
+      <!-- Qué hacer, dicho claro: pulsar un canal lo hace sonar y abre su curso -->
+      <div class="mesa__cabeza">
+        <p class="mesa__guia">
+          <span class="mesa__mano" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20"><path d="M9 11V5.5a1.5 1.5 0 0 1 3 0V10m0-1.5a1.5 1.5 0 0 1 3 0V11m0-1a1.5 1.5 0 0 1 3 0v4.5a6 6 0 0 1-6 6h-1.2a5 5 0 0 1-3.9-1.9L4.3 15a1.6 1.6 0 0 1 2.4-2.1L9 15" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+          <span><strong>Pulsa un instrumento.</strong> Suena solo y ves su curso.</span>
+        </p>
+        <div class="mesa__controles">
+          <p class="mesa__estado" data-mesa-estado aria-live="polite">Guitarra</p>
+          <button class="mesa__play" type="button" data-riddim-toggle aria-pressed="false">
+            <svg class="ico-play" viewBox="0 0 20 20" width="13" height="13" aria-hidden="true"><path d="M6 4l10 6-10 6z" fill="currentColor"/></svg>
+            <svg class="ico-pausa" viewBox="0 0 20 20" width="13" height="13" aria-hidden="true"><path d="M5 4h3.5v12H5zM11.5 4H15v12h-3.5z" fill="currentColor"/></svg>
+            <span data-riddim-label>Escuchar</span>
+          </button>
+        </div>
       </div>
 
+      <div class="mesa__cuerpo">
       <div class="mesa__canales" role="tablist" aria-label="Cursos" data-canales>
         <a class="canal" href="#curso-guitarra" role="tab" id="tab-guitarra" aria-controls="curso-guitarra" aria-selected="true" data-canal="guitarra" style="--nivel:.62">
           <span class="canal__n mono">01</span>
           <span class="canal__vu" aria-hidden="true"><span class="canal__vu-luz" data-vu></span></span>
           <span class="canal__fader" aria-hidden="true"><span class="canal__pomo"></span></span>
-          <span class="canal__solo mono" aria-hidden="true">S</span>
+          <span class="canal__solo" aria-hidden="true"><svg viewBox="0 0 20 20" width="13" height="13"><path d="M3 7.5h3l4-3.5v12l-4-3.5H3z" fill="currentColor"/><path d="M13 7.2a4 4 0 0 1 0 5.6M15.4 5a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
           <span class="canal__cinta">Guitarra</span>
         </a>
         <a class="canal" href="#curso-bajo" role="tab" id="tab-bajo" aria-controls="curso-bajo" aria-selected="false" data-canal="bajo" style="--nivel:.5">
           <span class="canal__n mono">02</span>
           <span class="canal__vu" aria-hidden="true"><span class="canal__vu-luz" data-vu></span></span>
           <span class="canal__fader" aria-hidden="true"><span class="canal__pomo"></span></span>
-          <span class="canal__solo mono" aria-hidden="true">S</span>
+          <span class="canal__solo" aria-hidden="true"><svg viewBox="0 0 20 20" width="13" height="13"><path d="M3 7.5h3l4-3.5v12l-4-3.5H3z" fill="currentColor"/><path d="M13 7.2a4 4 0 0 1 0 5.6M15.4 5a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
           <span class="canal__cinta">Bajo</span>
         </a>
         <a class="canal" href="#curso-canto" role="tab" id="tab-canto" aria-controls="curso-canto" aria-selected="false" data-canal="canto" style="--nivel:.7">
           <span class="canal__n mono">03</span>
           <span class="canal__vu" aria-hidden="true"><span class="canal__vu-luz" data-vu></span></span>
           <span class="canal__fader" aria-hidden="true"><span class="canal__pomo"></span></span>
-          <span class="canal__solo mono" aria-hidden="true">S</span>
+          <span class="canal__solo" aria-hidden="true"><svg viewBox="0 0 20 20" width="13" height="13"><path d="M3 7.5h3l4-3.5v12l-4-3.5H3z" fill="currentColor"/><path d="M13 7.2a4 4 0 0 1 0 5.6M15.4 5a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
           <span class="canal__cinta">Canto</span>
         </a>
         <a class="canal" href="#curso-saxo" role="tab" id="tab-saxo" aria-controls="curso-saxo" aria-selected="false" data-canal="saxo" style="--nivel:.56">
           <span class="canal__n mono">04</span>
           <span class="canal__vu" aria-hidden="true"><span class="canal__vu-luz" data-vu></span></span>
           <span class="canal__fader" aria-hidden="true"><span class="canal__pomo"></span></span>
-          <span class="canal__solo mono" aria-hidden="true">S</span>
+          <span class="canal__solo" aria-hidden="true"><svg viewBox="0 0 20 20" width="13" height="13"><path d="M3 7.5h3l4-3.5v12l-4-3.5H3z" fill="currentColor"/><path d="M13 7.2a4 4 0 0 1 0 5.6M15.4 5a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
           <span class="canal__cinta">Saxo</span>
         </a>
         <a class="canal" href="#curso-teclado" role="tab" id="tab-teclado" aria-controls="curso-teclado" aria-selected="false" data-canal="teclado" style="--nivel:.66">
           <span class="canal__n mono">05</span>
           <span class="canal__vu" aria-hidden="true"><span class="canal__vu-luz" data-vu></span></span>
           <span class="canal__fader" aria-hidden="true"><span class="canal__pomo"></span></span>
-          <span class="canal__solo mono" aria-hidden="true">S</span>
+          <span class="canal__solo" aria-hidden="true"><svg viewBox="0 0 20 20" width="13" height="13"><path d="M3 7.5h3l4-3.5v12l-4-3.5H3z" fill="currentColor"/><path d="M13 7.2a4 4 0 0 1 0 5.6M15.4 5a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
           <span class="canal__cinta">Teclado</span>
         </a>
         <a class="canal" href="#curso-bateria" role="tab" id="tab-bateria" aria-controls="curso-bateria" aria-selected="false" data-canal="bateria" style="--nivel:.54">
           <span class="canal__n mono">06</span>
           <span class="canal__vu" aria-hidden="true"><span class="canal__vu-luz" data-vu></span></span>
           <span class="canal__fader" aria-hidden="true"><span class="canal__pomo"></span></span>
-          <span class="canal__solo mono" aria-hidden="true">S</span>
+          <span class="canal__solo" aria-hidden="true"><svg viewBox="0 0 20 20" width="13" height="13"><path d="M3 7.5h3l4-3.5v12l-4-3.5H3z" fill="currentColor"/><path d="M13 7.2a4 4 0 0 1 0 5.6M15.4 5a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
           <span class="canal__cinta">Batería</span>
         </a>
         <a class="canal" href="#curso-produccion" role="tab" id="tab-produccion" aria-controls="curso-produccion" aria-selected="false" data-canal="produccion" style="--nivel:.6">
           <span class="canal__n mono">07</span>
           <span class="canal__vu" aria-hidden="true"><span class="canal__vu-luz" data-vu></span></span>
           <span class="canal__fader" aria-hidden="true"><span class="canal__pomo"></span></span>
-          <span class="canal__solo mono" aria-hidden="true">S</span>
+          <span class="canal__solo" aria-hidden="true"><svg viewBox="0 0 20 20" width="13" height="13"><path d="M3 7.5h3l4-3.5v12l-4-3.5H3z" fill="currentColor"/><path d="M13 7.2a4 4 0 0 1 0 5.6M15.4 5a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
           <span class="canal__cinta">Producción</span>
         </a>
         <a class="canal" href="#curso-combo" role="tab" id="tab-combo" aria-controls="curso-combo" aria-selected="false" data-canal="combo" style="--nivel:.72">
           <span class="canal__n mono">08</span>
           <span class="canal__vu" aria-hidden="true"><span class="canal__vu-luz" data-vu></span></span>
           <span class="canal__fader" aria-hidden="true"><span class="canal__pomo"></span></span>
-          <span class="canal__solo mono" aria-hidden="true">S</span>
+          <span class="canal__solo" aria-hidden="true"><svg viewBox="0 0 20 20" width="13" height="13"><path d="M3 7.5h3l4-3.5v12l-4-3.5H3z" fill="currentColor"/><path d="M13 7.2a4 4 0 0 1 0 5.6M15.4 5a7 7 0 0 1 0 10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></span>
           <span class="canal__cinta">Combo RSM</span>
         </a>
       </div>
@@ -271,7 +292,7 @@
               expresión</strong>: <em>bend, vibratos, ligados</em>. Descubre los <strong>pedales y
               efectos</strong> más comunes en reggae: <em>Delay, reverb, phaser, Wah wah</em>.
             </p>
-            <a class="boton boton--blanco" href="#reserva" data-reserva data-instrumento="Guitarra">Prueba una clase de guitarra</a>
+            <a class="boton boton--rojo" href="#reserva" data-reserva data-instrumento="Guitarra">Prueba una clase de guitarra</a>
           </div>
           <figure class="curso__foto">
             <img src="assets/img/curso-guitarra-600.webp" srcset="assets/img/curso-guitarra-400.webp 400w, assets/img/curso-guitarra-600.webp 600w, assets/img/curso-guitarra-892.webp 892w" sizes="(min-width: 1024px) 30vw, 90vw" width="600" height="800" alt="Guitarrista tocando una guitarra de caja en directo" loading="lazy" decoding="async">
@@ -291,7 +312,7 @@
               necesaria para dominarlos. Entiende y domina tu <strong>sonido</strong> y sus
               posibilidades.
             </p>
-            <a class="boton boton--blanco" href="#reserva" data-reserva data-instrumento="Bajo">Prueba una clase de bajo</a>
+            <a class="boton boton--rojo" href="#reserva" data-reserva data-instrumento="Bajo">Prueba una clase de bajo</a>
           </div>
           <figure class="curso__foto">
             <img src="assets/img/curso-bajo-600.webp" srcset="assets/img/curso-bajo-400.webp 400w, assets/img/curso-bajo-600.webp 600w, assets/img/curso-bajo-900.webp 900w" sizes="(min-width: 1024px) 30vw, 90vw" width="600" height="800" alt="Bajo eléctrico de cuatro cuerdas" loading="lazy" decoding="async">
@@ -313,7 +334,7 @@
               eres corista, aprende a poder <strong>armonizar voces</strong>. Para voces melódicas o
               recitadas. Aprende a usar el <strong>micrófono</strong> y <strong>efectos</strong> para voz.
             </p>
-            <a class="boton boton--blanco" href="#reserva" data-reserva data-instrumento="Canto">Prueba una clase de canto</a>
+            <a class="boton boton--rojo" href="#reserva" data-reserva data-instrumento="Canto">Prueba una clase de canto</a>
           </div>
           <figure class="curso__foto">
             <img src="assets/img/curso-canto-600.webp" srcset="assets/img/curso-canto-400.webp 400w, assets/img/curso-canto-600.webp 600w, assets/img/curso-canto-900.webp 900w" sizes="(min-width: 1024px) 30vw, 90vw" width="600" height="800" alt="Cantante con micrófono y guitarra en un concierto" loading="lazy" decoding="async">
@@ -334,7 +355,7 @@
               instrumento con los <strong>grandes clásicos</strong> del género. Aprende de cero o
               perfecciona tu nivel con este gran profesor y músico <strong>residente en Madrid</strong>.
             </p>
-            <a class="boton boton--blanco" href="#reserva" data-reserva data-instrumento="Saxo">Prueba una clase de saxo</a>
+            <a class="boton boton--rojo" href="#reserva" data-reserva data-instrumento="Saxo">Prueba una clase de saxo</a>
           </div>
           <figure class="curso__foto">
             <img src="assets/img/curso-saxo-600.webp" srcset="assets/img/curso-saxo-400.webp 400w, assets/img/curso-saxo-600.webp 600w, assets/img/curso-saxo-900.webp 900w" sizes="(min-width: 1024px) 30vw, 90vw" width="600" height="800" alt="Jorge Rodríguez tocando el saxofón en un escenario con luz roja" loading="lazy" decoding="async">
@@ -356,7 +377,7 @@
               distintas técnicas de <strong>independencia de manos</strong> y descubre estrategias de
               <strong>improvisación</strong>.
             </p>
-            <a class="boton boton--blanco" href="#reserva" data-reserva data-instrumento="Teclado">Prueba una clase de teclado</a>
+            <a class="boton boton--rojo" href="#reserva" data-reserva data-instrumento="Teclado">Prueba una clase de teclado</a>
           </div>
           <figure class="curso__foto">
             <img src="assets/img/curso-teclado-600.webp" srcset="assets/img/curso-teclado-400.webp 400w, assets/img/curso-teclado-600.webp 600w, assets/img/curso-teclado-900.webp 900w" sizes="(min-width: 1024px) 30vw, 90vw" width="600" height="800" alt="Teclado de un piano eléctrico con mueble de madera" loading="lazy" decoding="async">
@@ -377,7 +398,7 @@
               <strong>fills</strong> más característicos de cada subestilo. Controla la
               <strong>técnica</strong> del instrumento.
             </p>
-            <a class="boton boton--blanco" href="#reserva" data-reserva data-instrumento="Batería">Prueba una clase de batería</a>
+            <a class="boton boton--rojo" href="#reserva" data-reserva data-instrumento="Batería">Prueba una clase de batería</a>
           </div>
           <figure class="curso__foto">
             <img src="assets/img/curso-bateria-600.webp" srcset="assets/img/curso-bateria-400.webp 400w, assets/img/curso-bateria-600.webp 600w" sizes="(min-width: 1024px) 30vw, 90vw" width="600" height="800" alt="Baterista tocando en el estudio, en blanco y negro" loading="lazy" decoding="async">
@@ -399,7 +420,7 @@
               <strong>Mezcla analógica / mezcla digital</strong>. Trabajamos con <em>Cubase, Pro Tools,
               Ableton, Reason, Reaper y Logic pro</em>.
             </p>
-            <a class="boton boton--blanco" href="#reserva" data-reserva data-instrumento="Producción y mezcla">Prueba una clase de producción</a>
+            <a class="boton boton--rojo" href="#reserva" data-reserva data-instrumento="Producción y mezcla">Prueba una clase de producción</a>
           </div>
           <figure class="curso__foto">
             <img src="assets/img/curso-produccion-512.webp" srcset="assets/img/curso-produccion-400.webp 400w, assets/img/curso-produccion-512.webp 512w" sizes="(min-width: 1024px) 30vw, 90vw" width="512" height="683" alt="Productor trabajando en una mesa de mezclas durante un directo" loading="lazy" decoding="async">
@@ -435,13 +456,26 @@
                 <li>Conocimientos básicos</li>
               </ul>
             </div>
-            <a class="boton boton--blanco" href="#reserva" data-reserva data-instrumento="Combo RSM">Quiero entrar en el Combo</a>
+            <a class="boton boton--rojo" href="#reserva" data-reserva data-instrumento="Combo RSM">Quiero entrar en el Combo</a>
           </div>
           <figure class="curso__foto">
             <img src="assets/img/cartel-combo-560.webp" srcset="assets/img/cartel-combo-560.webp 560w, assets/img/cartel-combo-900.webp 900w" sizes="(min-width: 1024px) 30vw, 90vw" width="560" height="579" alt="Cartel del Curso de Combo: impartido por Maga Lion y David Arribas, clase semanal de dos horas, centro de Madrid, backline incluido" loading="lazy" decoding="async">
           </figure>
         </article>
 
+        <!-- Recorrer los cursos sin volver a la mesa -->
+        <div class="pantalla__nav" data-pantalla-nav hidden>
+          <button class="pantalla__btn" type="button" data-mesa-ir="-1">
+            <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M12.5 4.5L7 10l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span data-mesa-prev>Combo RSM</span>
+          </button>
+          <p class="pantalla__cuenta mono" data-mesa-cuenta>01 / 08</p>
+          <button class="pantalla__btn pantalla__btn--sig" type="button" data-mesa-ir="1">
+            <span data-mesa-next>Bajo</span>
+            <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M7.5 4.5L13 10l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+        </div>
+      </div>
       </div>
     </div>
   </div>
@@ -469,7 +503,7 @@
         </div>
         <div class="entrada__talon">
           <span class="sello" aria-hidden="true">Sin<br>matrícula</span>
-          <a class="boton boton--tinta" href="#reserva" data-reserva data-frecuencia="Semanal">Me interesa</a>
+          <a class="boton boton--rojo" href="#reserva" data-reserva data-frecuencia="Semanal">Me interesa</a>
         </div>
       </article>
 
@@ -483,7 +517,7 @@
         </div>
         <div class="entrada__talon">
           <span class="sello" aria-hidden="true">Sin<br>matrícula</span>
-          <a class="boton boton--tinta" href="#reserva" data-reserva data-frecuencia="Quincenal">Me interesa</a>
+          <a class="boton boton--rojo" href="#reserva" data-reserva data-frecuencia="Quincenal">Me interesa</a>
         </div>
       </article>
     </div>
@@ -712,8 +746,8 @@
 
       <div class="form__acciones">
         <button class="boton boton--linea" type="button" data-form-atras hidden>Atrás</button>
-        <button class="boton boton--tinta" type="button" data-form-siguiente>Siguiente</button>
-        <button class="boton boton--tinta" type="submit" data-form-enviar hidden>Enviar solicitud</button>
+        <button class="boton boton--rojo" type="button" data-form-siguiente>Siguiente</button>
+        <button class="boton boton--rojo" type="submit" data-form-enviar hidden>Enviar solicitud</button>
       </div>
 
       <div class="form__ok" data-form-ok hidden tabindex="-1">
@@ -780,21 +814,21 @@
 
       <ul class="red-lista" data-revela>
         <li>
-          <a class="red" href="https://www.instagram.com/reggaeschoolmadrid/">
+          <a class="red" href="https://www.instagram.com/reggaeschoolmadrid/" target="_blank" rel="noopener">
             <span class="red__ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></span>
             <span class="red__txt"><strong>Instagram</strong><span>@reggaeschoolmadrid</span></span>
             <span class="red__accion">Seguir</span>
           </a>
         </li>
         <li>
-          <a class="red" href="https://www.youtube.com/channel/UCNSFSKC_9hNB4wqtihIZoTg">
+          <a class="red" href="https://www.youtube.com/channel/UCNSFSKC_9hNB4wqtihIZoTg" target="_blank" rel="noopener">
             <span class="red__ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M22 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C18.3 5 12 5 12 5s-6.3 0-7.8.5a2.5 2.5 0 0 0-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.7c.2.9.9 1.6 1.8 1.8C5.7 19 12 19 12 19s6.3 0 7.8-.5a2.5 2.5 0 0 0 1.8-1.8C22 15.2 22 12 22 12zM10 15V9l5.2 3L10 15z"/></svg></span>
             <span class="red__txt"><strong>YouTube</strong><span>Reggae School Madrid</span></span>
             <span class="red__accion">Ver el canal</span>
           </a>
         </li>
         <li>
-          <a class="red" href="https://www.facebook.com/reggaeschoolmadrid">
+          <a class="red" href="https://www.facebook.com/reggaeschoolmadrid" target="_blank" rel="noopener">
             <span class="red__ico" aria-hidden="true"><svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h3l1-3h-4v-2c0-.6.4-1 1-1z"/></svg></span>
             <span class="red__txt"><strong>Facebook</strong><span>reggaeschoolmadrid</span></span>
             <span class="red__accion">Seguir</span>
@@ -803,7 +837,7 @@
       </ul>
     </div>
 
-    <a class="mosaico" href="https://www.instagram.com/reggaeschoolmadrid/" aria-label="Ver más fotos de la escuela en Instagram" data-revela>
+    <a class="mosaico" href="https://www.instagram.com/reggaeschoolmadrid/" target="_blank" rel="noopener" aria-label="Ver más fotos de la escuela en Instagram" data-revela>
       <img src="assets/img/curso-canto-400.webp" width="400" height="533" alt="" loading="lazy" decoding="async">
       <img src="assets/img/curso-saxo-400.webp" width="400" height="533" alt="" loading="lazy" decoding="async">
       <img src="assets/img/curso-guitarra-400.webp" width="400" height="533" alt="" loading="lazy" decoding="async">
@@ -832,34 +866,34 @@
       <nav class="pie__col pie__col--cursos" aria-label="Cursos">
         <h2 class="pie__t">Cursos</h2>
         <ul>
-          <li><a href="cursos/guitarra/" data-proxima="Guitarra">Guitarra</a></li>
-          <li><a href="cursos/bajo/" data-proxima="Bajo">Bajo</a></li>
-          <li><a href="cursos/canto/" data-proxima="Canto">Canto</a></li>
-          <li><a href="cursos/saxo/" data-proxima="Saxo">Saxo</a></li>
-          <li><a href="cursos/teclado/" data-proxima="Teclado">Teclado</a></li>
-          <li><a href="cursos/bateria/" data-proxima="Batería">Batería</a></li>
-          <li><a href="cursos/produccion-y-mezcla/" data-proxima="Producción y mezcla">Producción y mezcla</a></li>
-          <li><a href="combo-rsm/" data-proxima="Combo RSM">Combo RSM</a></li>
+          <li><span>Guitarra</span></li>
+          <li><span>Bajo</span></li>
+          <li><span>Canto</span></li>
+          <li><span>Saxo</span></li>
+          <li><span>Teclado</span></li>
+          <li><span>Batería</span></li>
+          <li><span>Producción y mezcla</span></li>
+          <li><span>Combo RSM</span></li>
         </ul>
       </nav>
 
       <nav class="pie__col" aria-label="La escuela">
         <h2 class="pie__t">La escuela</h2>
         <ul>
-          <li><a href="profesorado/" data-proxima="Profesorado">Profesorado</a></li>
-          <li><a href="tarifas/" data-proxima="Tarifas">Tarifas</a></li>
-          <li><a href="preguntas-frecuentes/" data-proxima="Preguntas">Preguntas</a></li>
+          <li><span>Profesorado</span></li>
+          <li><span>Tarifas</span></li>
+          <li><span>Preguntas</span></li>
           <li><a href="#reserva" data-reserva>Sesión de prueba</a></li>
         </ul>
       </nav>
 
       <div class="pie__col">
         <h2 class="pie__t">Contacto</h2>
-        <p><a class="pie__mail" href="mailto:reggaeschoolmadrid@gmail.com">reggaeschoolmadrid@gmail.com</a></p>
+        <p class="pie__mail">reggaeschoolmadrid@gmail.com</p>
         <ul class="iconos iconos--pie" aria-label="Redes sociales">
-          <li><a href="https://www.instagram.com/reggaeschoolmadrid/" aria-label="Instagram"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></a></li>
-          <li><a href="https://www.youtube.com/channel/UCNSFSKC_9hNB4wqtihIZoTg" aria-label="YouTube"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M22 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C18.3 5 12 5 12 5s-6.3 0-7.8.5a2.5 2.5 0 0 0-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.7c.2.9.9 1.6 1.8 1.8C5.7 19 12 19 12 19s6.3 0 7.8-.5a2.5 2.5 0 0 0 1.8-1.8C22 15.2 22 12 22 12zM10 15V9l5.2 3L10 15z"/></svg></a></li>
-          <li><a href="https://www.facebook.com/reggaeschoolmadrid" aria-label="Facebook"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h3l1-3h-4v-2c0-.6.4-1 1-1z"/></svg></a></li>
+          <li><span aria-label="Instagram" role="img"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1.1" fill="currentColor" stroke="none"/></svg></span></li>
+          <li><span aria-label="YouTube" role="img"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M22 12s0-3.2-.4-4.7a2.5 2.5 0 0 0-1.8-1.8C18.3 5 12 5 12 5s-6.3 0-7.8.5a2.5 2.5 0 0 0-1.8 1.8C2 8.8 2 12 2 12s0 3.2.4 4.7c.2.9.9 1.6 1.8 1.8C5.7 19 12 19 12 19s6.3 0 7.8-.5a2.5 2.5 0 0 0 1.8-1.8C22 15.2 22 12 22 12zM10 15V9l5.2 3L10 15z"/></svg></span></li>
+          <li><span aria-label="Facebook" role="img"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="currentColor"><path d="M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h3l1-3h-4v-2c0-.6.4-1 1-1z"/></svg></span></li>
         </ul>
       </div>
     </div>
@@ -868,20 +902,13 @@
   </div>
 </footer>
 
-<!-- Barra fija en móvil + mini reproductor + aviso de páginas futuras -->
+<!-- Barra fija en móvil -->
 <div class="fija" data-fija aria-hidden="true">
-  <a class="boton boton--tinta boton--ancho" href="#reserva" data-reserva tabindex="-1">Reserva tu sesión de prueba</a>
+  <a class="boton boton--rojo boton--ancho" href="#reserva" data-reserva tabindex="-1">Reserva tu sesión de prueba</a>
 </div>
 
-<div class="sonando" data-sonando hidden>
-  <span class="sonando__eq" aria-hidden="true"><i></i><i></i><i></i></span>
-  <span class="sonando__t mono" data-sonando-t>Sonando</span>
-  <button class="sonando__btn" type="button" data-riddim-toggle aria-pressed="true">Pausa</button>
-</div>
 
-<div class="aviso" data-aviso role="status" aria-live="polite"></div>
-
-<script src="assets/js/riddim.js?v=3.1" defer></script>
-<script src="assets/js/main.js?v=3.1" defer></script>
+<script src="assets/js/riddim.js?v=3.2" defer></script>
+<script src="assets/js/main.js?v=3.2" defer></script>
 </body>
 </html>
