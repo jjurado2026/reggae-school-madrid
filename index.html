@@ -3,6 +3,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<script>
+  // Propuesta con caducidad: en GitHub Pages, desde el 11-oct-2026 a las 00:00 (Madrid)
+  // se ve el aviso. El workflow caducidad.yml la retira del todo poco después.
+  if (location.hostname.endsWith('github.io') && Date.now() >= Date.UTC(2026, 9, 10, 22)) {
+    document.documentElement.hidden = true;
+    location.replace('caducada/');
+  }
+</script>
 <title>Reggae School Madrid — Clases de reggae online y presenciales en Madrid</title>
 <meta name="description" content="Aprende guitarra, bajo, canto, saxo, teclado, batería, producción o toca en una banda con músicos de la escena reggae. Online o presencial en Madrid. Sin matrícula.">
 <meta name="robots" content="noindex, nofollow">
