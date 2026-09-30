@@ -70,5 +70,17 @@ git subtree push --prefix=prototype origin gh-pages
 
 Versiones anteriores: etiqueta `v2-home` (hero a pantalla completa, oscura).
 
+## Caducidad
+
+La propuesta publicada se ve **hasta el 10 de octubre de 2026 a las 23:59 (Madrid)**. Después:
+
+- `index.html` redirige a `caducada/` desde el navegador (solo en `github.io`; en local no).
+- El workflow `.github/workflows/caducidad.yml` sustituye `gh-pages` por el aviso de
+  `prototype/caducada/` (también como 404 para cualquier dirección antigua).
+
+Para ampliar el plazo, cambia la fecha en los dos sitios (`Date.UTC(...)` en `index.html` y
+`LIMITE` y el `cron` del workflow). Si el aviso ya se publicó, `git subtree push` fallará: hay que
+forzar `gh-pages` con `git push origin $(git subtree split --prefix=prototype):gh-pages --force`.
+
 ---
 Diseño y desarrollo: **Juan Jurado** · [jjuradogarciadelrio.com](https://jjuradogarciadelrio.com)

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Propuesta no disponible</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1d1e1e">
+<link rel="preload" href="fuentes/fraunces.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+  /* Aviso de propuesta caducada. Autocontenido: se publica tal cual en la raíz
+     de GitHub Pages cuando vence el plazo (ver .github/workflows/caducidad.yml). */
+  @font-face {
+    font-family: "Fraunces";
+    src: url("fuentes/fraunces.woff2") format("woff2");
+    font-weight: 300 900;
+    font-display: swap;
+  }
+  @font-face {
+    font-family: "Instrument Sans";
+    src: url("fuentes/instrument-sans.woff2") format("woff2");
+    font-weight: 400 700;
+    font-display: swap;
+  }
+
+  :root {
+    --negro: #1d1e1e;
+    --negro-2: #161717;
+    --blanco: #ffffff;
+    --texto-suave: #b9bbbb;
+    --rojo: #b8312b;
+    --rojo-texto: #ea5a4f;
+    --serif: "Fraunces", Georgia, serif;
+    --sans: "Instrument Sans", system-ui, sans-serif;
+    --sombra-2: 0 2px 4px rgba(0, 0, 0, .3), 0 16px 34px -12px rgba(0, 0, 0, .6);
+    --salida: cubic-bezier(.22, 1, .36, 1);
+    --muelle: linear(0, .006, .025 2.8%, .101 6.1%, .539 18.9%, .721 25.3%, .849 31.5%, .937 38.1%, .968 41.8%, .991 45.7%, 1.006 50.1%, 1.015 55%, 1.017 63.9%, 1.001 85.4%, 1);
+    --semi: 200ms;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    min-height: 100svh;
+    background: var(--negro);
+    color: var(--blanco);
+    font-family: var(--sans);
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .aviso {
+    min-height: 100svh;
+    display: grid;
+    align-content: center;
+    gap: 36px;
+    width: min(100%, 1120px);
+    margin-inline: auto;
+    padding: 36px 20px 40px;
+  }
+
+  .aviso__texto { max-width: 34rem; animation: aparece 700ms var(--salida) both; }
+
+  .aviso__t {
+    margin: 0;
+    font-family: var(--serif);
+    font-weight: 560;
+    font-size: clamp(1.75rem, 1.2rem + 2.4vw, 2.9rem);
+    line-height: 1.16;
+    letter-spacing: 0;
+    text-wrap: balance;
+  }
+
+  .aviso__p {
+    margin: 24px 0 0;
+    font-size: clamp(1.0625rem, 1rem + .35vw, 1.25rem);
+    color: var(--texto-suave);
+    overflow-wrap: anywhere;
+  }
+
+  .aviso__mail {
+    color: var(--rojo-texto);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--rojo);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+    border-radius: 3px;
+    transition: color var(--semi) var(--salida), text-decoration-color var(--semi) var(--salida);
+  }
+  .aviso__mail:hover { color: var(--blanco); text-decoration-color: var(--rojo-texto); }
+  .aviso__mail:focus-visible { outline: 2px solid var(--rojo-texto); outline-offset: 4px; }
+  .aviso__mail:active { opacity: .75; }
+
+  .aviso__firma {
+    margin: 24px 0 0;
+    font-size: .9375rem;
+    color: var(--texto-suave);
+  }
+  .aviso__firma strong { color: var(--blanco); font-weight: 600; }
+
+  /* La home entera, cortada en tres tiras de arriba abajo */
+  .tiras { margin: 0; width: min(100%, 380px); }
+  .tiras__fila {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    padding: 12px;
+    background: var(--negro-2);
+    border-radius: 10px;
+  }
+  .tira {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1440 / 2788;
+    object-fit: cover;
+    border-radius: 3px;
+    box-shadow: var(--sombra-2);
+    animation: sube 900ms var(--muelle) both;
+    animation-delay: calc(250ms + var(--i) * var(--semi));
+  }
+  .tira:nth-child(1) { --i: 0; object-position: 50% 0; }
+  .tira:nth-child(2) { --i: 1; object-position: 50% 50%; }
+  .tira:nth-child(3) { --i: 2; object-position: 50% 100%; }
+
+  .tiras__pie {
+    margin-top: 12px;
+    font-size: .875rem;
+    line-height: 1.5;
+    color: var(--texto-suave);
+  }
+
+  @keyframes aparece { from { opacity: 0; } }
+  @keyframes sube { from { opacity: 0; transform: translateY(28px); } }
+
+  @media (min-width: 600px) and (max-width: 879.98px) {
+    .aviso { width: min(100%, calc(34rem + 40px)); }
+  }
+
+  @media (min-width: 880px) {
+    .aviso {
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 72px;
+      padding-inline: 48px;
+    }
+    .tiras { width: 400px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .aviso__texto, .tira { animation: none; }
+    .aviso__mail { transition: none; }
+  }
+</style>
+</head>
+<body>
+<main class="aviso">
+  <div class="aviso__texto">
+    <h1 class="aviso__t">No puedes ver esta página porque han pasado más de 10 días desde su envío.</h1>
+    <p class="aviso__p">Si sigues con interés, escríbeme a
+      <a class="aviso__mail" href="mailto:jjuradogarciadelrio@gmail.com?subject=Propuesta%20web%20Reggae%20School%20Madrid">jjuradogarciadelrio@gmail.com</a>.</p>
+    <p class="aviso__firma"><strong>Juan Jurado</strong>, diseño y desarrollo web</p>
+  </div>
+
+  <figure class="tiras">
+    <div class="tiras__fila">
+      <img class="tira" src="home-entera-480.webp" width="480" height="2788" alt="La home propuesta para Reggae School Madrid, entera, en tres tramos de arriba abajo">
+      <img class="tira" src="home-entera-480.webp" width="480" height="2788" alt="" aria-hidden="true">
+      <img class="tira" src="home-entera-480.webp" width="480" height="2788" alt="" aria-hidden="true">
+    </div>
+    <figcaption class="tiras__pie">La propuesta de home para Reggae School Madrid, entera.</figcaption>
+  </figure>
+</main>
+</body>
+</html>

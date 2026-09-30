@@ -1,0 +1,89 @@
+# Retira la propuesta publicada cuando vence su plazo de 10 días.
+# Desde el 11-oct-2026 a las 00:00 (Madrid) GitHub Pages sirve solo el aviso de
+# prototype/caducada/ (en gh-pages, caducada/). La home ya redirige al aviso a esa
+# hora desde el navegador; este workflow la quita de la web publicada.
+#
+# Simulacro: Actions → «Caducidad de la propuesta» → Run workflow (marcado por
+# defecto). Publica el resultado en la rama prueba-caducidad sin tocar la web.
+
+name: Caducidad de la propuesta
+
+on:
+  schedule:
+    - cron: '20 * 10-12 10 *'   # cada hora del 10 al 12 de octubre (UTC); el plazo lo decide el primer paso
+  workflow_dispatch:
+    inputs:
+      simulacro:
+        description: 'Simulacro: publicar en la rama prueba-caducidad, sin tocar la web'
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+  pages: write
+
+concurrency:
+  group: caducidad
+
+env:
+  LIMITE: '2026-10-10T22:00:00Z'   # 11-oct-2026 00:00 en Madrid
+
+jobs:
+  caducar:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comprobar el plazo
+        id: plazo
+        env:
+          SIMULACRO: ${{ inputs.simulacro }}
+        run: |
+          if [ "$SIMULACRO" = "true" ]; then
+            echo "rama=prueba-caducidad" >> "$GITHUB_OUTPUT"
+          elif [ "$(date -u +%s)" -ge "$(date -u -d "$LIMITE" +%s)" ]; then
+            echo "rama=gh-pages" >> "$GITHUB_OUTPUT"
+          else
+            echo "El plazo vence el $LIMITE (UTC). No se toca nada."
+          fi
+
+      - name: Traer la web publicada
+        if: steps.plazo.outputs.rama
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Dejar solo el aviso
+        id: aviso
+        if: steps.plazo.outputs.rama
+        env:
+          RAMA: ${{ steps.plazo.outputs.rama }}
+        run: |
+          if grep -q '<title>Propuesta no disponible</title>' index.html; then
+            echo "La web ya muestra el aviso."
+            exit 0
+          fi
+          test -f caducada/index.html
+
+          tmp="$(mktemp -d)"
+          cp -r caducada/. "$tmp/"
+          git rm -rq .
+          cp -r "$tmp/." .
+          mkdir caducada && cp -r "$tmp/." caducada/
+          # 404 para cualquier dirección antigua; con base para que carguen fuentes e imagen
+          sed "s#<head>#<head>\n<base href=\"/${GITHUB_REPOSITORY#*/}/\">#" index.html > 404.html
+          touch .nojekyll
+
+          git add -A
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' \
+            commit -qm "Propuesta caducada: la web muestra solo el aviso"
+          if [ "$RAMA" = "gh-pages" ]; then
+            git push origin HEAD:gh-pages
+          else
+            git push --force origin "HEAD:refs/heads/$RAMA"
+          fi
+          echo "publicado=1" >> "$GITHUB_OUTPUT"
+
+      - name: Pedir a GitHub Pages que publique
+        if: steps.plazo.outputs.rama == 'gh-pages' && steps.aviso.outputs.publicado == '1'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh api -X POST "repos/$GITHUB_REPOSITORY/pages/builds" || echo "La publicación arrancará sola con el push."
