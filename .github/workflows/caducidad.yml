@@ -1,5 +1,5 @@
 # Retira la propuesta publicada cuando vence su plazo de 10 días.
-# Desde el 11-oct-2026 a las 00:00 (Madrid) GitHub Pages sirve solo el aviso de
+# Desde el 10-oct-2026 a las 00:00 (Madrid) GitHub Pages sirve solo el aviso de
 # prototype/caducada/ (en gh-pages, caducada/). La home ya redirige al aviso a esa
 # hora desde el navegador; este workflow la quita de la web publicada.
 #
@@ -10,7 +10,7 @@ name: Caducidad de la propuesta
 
 on:
   schedule:
-    - cron: '20 * 10-12 10 *'   # cada hora del 10 al 12 de octubre (UTC); el plazo lo decide el primer paso
+    - cron: '20 * 9-12 10 *'    # cada hora del 9 al 12 de octubre (UTC); el plazo lo decide el primer paso
   workflow_dispatch:
     inputs:
       simulacro:
@@ -26,7 +26,7 @@ concurrency:
   group: caducidad
 
 env:
-  LIMITE: '2026-10-10T22:00:00Z'   # 11-oct-2026 00:00 en Madrid
+  LIMITE: '2026-10-09T22:00:00Z'   # 10-oct-2026 00:00 en Madrid (enviada el 30-sep: 10 días contando ese)
 
 jobs:
   caducar:

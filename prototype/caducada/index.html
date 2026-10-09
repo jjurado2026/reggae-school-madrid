@@ -94,12 +94,6 @@
   .aviso__mail:focus-visible { outline: 2px solid var(--rojo-texto); outline-offset: 4px; }
   .aviso__mail:active { opacity: .75; }
 
-  .aviso__firma {
-    margin: 24px 0 0;
-    font-size: .9375rem;
-    color: var(--texto-suave);
-  }
-  .aviso__firma strong { color: var(--blanco); font-weight: 600; }
 
   /* La home entera, cortada en tres tiras de arriba abajo */
   .tiras { margin: 0; width: min(100%, 380px); }
@@ -126,12 +120,6 @@
   .tira:nth-child(2) { --i: 1; object-position: 50% 50%; }
   .tira:nth-child(3) { --i: 2; object-position: 50% 100%; }
 
-  .tiras__pie {
-    margin-top: 12px;
-    font-size: .875rem;
-    line-height: 1.5;
-    color: var(--texto-suave);
-  }
 
   @keyframes aparece { from { opacity: 0; } }
   @keyframes sube { from { opacity: 0; transform: translateY(28px); } }
@@ -162,7 +150,6 @@
     <h1 class="aviso__t">No puedes ver esta página porque han pasado más de 10 días desde su envío.</h1>
     <p class="aviso__p">Si sigues con interés, escríbeme a
       <a class="aviso__mail" href="mailto:jjuradogarciadelrio@gmail.com?subject=Propuesta%20web%20Reggae%20School%20Madrid">jjuradogarciadelrio@gmail.com</a>.</p>
-    <p class="aviso__firma"><strong>Juan Jurado</strong>, diseño y desarrollo web</p>
   </div>
 
   <figure class="tiras">
@@ -171,7 +158,6 @@
       <img class="tira" src="home-entera-480.webp" width="480" height="2788" alt="" aria-hidden="true">
       <img class="tira" src="home-entera-480.webp" width="480" height="2788" alt="" aria-hidden="true">
     </div>
-    <figcaption class="tiras__pie">La propuesta de home para Reggae School Madrid, entera.</figcaption>
   </figure>
 </main>
 </body>

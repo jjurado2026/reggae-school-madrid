@@ -72,7 +72,7 @@ Versiones anteriores: etiqueta `v2-home` (hero a pantalla completa, oscura).
 
 ## Caducidad
 
-La propuesta publicada se ve **hasta el 10 de octubre de 2026 a las 23:59 (Madrid)**. Después:
+La propuesta publicada se ve **hasta el 9 de octubre de 2026 a las 23:59 (Madrid)**: 10 días desde su envío, el 30 de septiembre (el día de envío cuenta). Después:
 
 - `index.html` redirige a `caducada/` desde el navegador (solo en `github.io`; en local no).
 - El workflow `.github/workflows/caducidad.yml` sustituye `gh-pages` por el aviso de
